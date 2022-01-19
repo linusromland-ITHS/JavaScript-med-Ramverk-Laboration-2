@@ -12,10 +12,12 @@ specifiers:
   vite: ^2.7.2
   vue: ^3.2.25
   vue-router: '4'
+  vuex: '4'
 
 dependencies:
   vue: 3.2.27
   vue-router: 4.0.12_vue@3.2.27
+  vuex: 4.0.2_vue@3.2.27
 
 devDependencies:
   '@vitejs/plugin-vue': 2.0.1_vite@2.7.13+vue@3.2.27
@@ -1514,6 +1516,15 @@ packages:
       '@vue/runtime-dom': 3.2.27
       '@vue/server-renderer': 3.2.27_vue@3.2.27
       '@vue/shared': 3.2.27
+    dev: false
+
+  /vuex/4.0.2_vue@3.2.27:
+    resolution: {integrity: sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==}
+    peerDependencies:
+      vue: ^3.0.2
+    dependencies:
+      '@vue/devtools-api': 6.0.0-beta.21.1
+      vue: 3.2.27
     dev: false
 
   /which/2.0.2:
