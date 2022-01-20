@@ -1,5 +1,5 @@
 //External Dependencies import
-const { connect, connection } = require("mongoose");
+const { connect, connection } = require('mongoose');
 
 // Variable Declarations
 let db;
@@ -12,24 +12,24 @@ let db;
  * @description This function connects to MongoDB
  */
 exports.setup = (collectionname, connectURL) => {
-  const dbLink = connectURL + collectionname;
-  connect(dbLink, { useNewUrlParser: true, useUnifiedTopology: true });
+	const dbLink = connectURL + collectionname;
+	connect(dbLink, { useNewUrlParser: true, useUnifiedTopology: true });
 
-  db = connection;
-  db.on(
-    "error",
-    console.error.bind(
-      console,
-      'Error while connecting to MongoDB using the following mongoURL: "' +
-        dbLink +
-        '"'
-    )
-  );
-  db.once("open", function () {
-    console.info(
-      'Connected to MongoDB using collection "' + collectionname + '"'
-    );
-  });
+	db = connection;
+	db.on(
+		'error',
+		console.error.bind(
+			console,
+			'Error while connecting to MongoDB using the following mongoURL: "' +
+				dbLink +
+				'"'
+		)
+	);
+	db.once('open', function () {
+		console.info(
+			'Connected to MongoDB using collection "' + collectionname + '"'
+		);
+	});
 };
 
 exports.db = db;
