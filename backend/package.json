@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "ChatBubble's Backend",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "forever main.js",
+    "dev": "nodemon main.js",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "format": "prettier .  --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linusromland-ITHS/JavaScript-med-Ramverk-Laboration-2.git"
+  },
+  "author": "Linus Romland (linusromland)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/linusromland-ITHS/JavaScript-med-Ramverk-Laboration-2/issues"
+  },
+  "homepage": "https://github.com/linusromland-ITHS/JavaScript-med-Ramverk-Laboration-2#readme",
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "nodemon": "^2.0.15",
+    "prettier": "2.5.1"
+  },
+  "dependencies": {
+    "connect-history-api-fallback": "^1.6.0",
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2",
+    "forever": "^4.0.2",
+    "ip": "^1.1.5",
+    "mongoose": "^6.1.7",
+    "path": "^0.12.7"
+  }
+}
