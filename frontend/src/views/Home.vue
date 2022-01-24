@@ -1,10 +1,17 @@
 <template>
-	<h1>Home</h1>
+	<div>
+		<RoomCard></RoomCard>
+	</div>
 </template>
 
 <script>
+import RoomCard from '../components/RoomCard.vue';
+
 export default {
-	name: 'Home'
+	name: 'Home',
+	components: {
+		RoomCard
+	},
 	data() {
 		return {
 			rooms: []
