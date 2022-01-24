@@ -2,14 +2,16 @@
 	"name": "frontend",
 	"version": "0.0.0",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite build --watch --mode development",
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
 		"format": "prettier .  --write"
 	},
 	"dependencies": {
+		"axios": "^0.25.0",
 		"vue": "^3.2.25",
+		"vue-axios": "^3.4.0",
 		"vue-router": "4",
 		"vuex": "4"
 	},
