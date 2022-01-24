@@ -23,7 +23,7 @@ app.use(express.json());
 database.setup('ChatBubble', mongoURL);
 
 //Routes
-app.use('/api/room', require('./routes/room'));
+app.use('/api/rooms', require('./routes/room'));
 
 //Configure Express for Vue History Mode
 app.use(history());
