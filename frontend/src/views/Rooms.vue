@@ -1,56 +1,58 @@
 <template>
 	<Navbar />
-	<button
-		@click="createModal = true"
-		class="p-2 rounded-md m-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
-	>
-		Create Room
-	</button>
-	<Modal
-		v-if="createModal"
-		@close="createModal = false"
-		@submit="createRoom"
-		showSubmitBtn="true"
-		submitBtnValue="Create Room"
-		title="Create Room"
-		:error="error"
-		:errorMessage="errorMessage"
-	>
-		<input
-			type="text"
-			class="w-5/6 p-2 m-5 rounded-md bg-gray-200"
-			placeholder="Room Name"
-			v-model="roomName"
-		/>
-		<input
-			type="password"
-			class="w-5/6 p-2 m-5 mt-0 rounded-md bg-gray-200"
-			placeholder="Admin Password"
-			v-model="adminPassword"
-		/>
-		<div class="flex align-center">
+	<div class="bg-slate-700">
+		<button
+			@click="createModal = true"
+			class="p-2 rounded-md m-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
+		>
+			Create Room
+		</button>
+		<Modal
+			v-if="createModal"
+			@close="createModal = false"
+			@submit="createRoom"
+			showSubmitBtn="true"
+			submitBtnValue="Create Room"
+			title="Create Room"
+			:error="error"
+			:errorMessage="errorMessage"
+		>
 			<input
-				type="checkbox"
-				class="w-6 h-6 m-1 rounded-md bg-gray-200"
-				v-model="privateRoom"
+				type="text"
+				class="w-5/6 p-2 m-5 rounded-md bg-gray-200"
+				placeholder="Room Name"
+				v-model="roomName"
 			/>
-			<p class="p-1 m-1">Private Room</p>
-		</div>
-		<input
-			v-if="privateRoom"
-			type="password"
-			class="w-5/6 p-2 m-5 rounded-md bg-gray-200"
-			placeholder="Private Room Password"
-			v-model="privateRoomPassword"
-		/>
-	</Modal>
+			<input
+				type="password"
+				class="w-5/6 p-2 m-5 mt-0 rounded-md bg-gray-200"
+				placeholder="Admin Password"
+				v-model="adminPassword"
+			/>
+			<div class="flex align-center">
+				<input
+					type="checkbox"
+					class="w-6 h-6 m-1 rounded-md bg-gray-200"
+					v-model="privateRoom"
+				/>
+				<p class="p-1 m-1">Private Room</p>
+			</div>
+			<input
+				v-if="privateRoom"
+				type="password"
+				class="w-5/6 p-2 m-5 rounded-md bg-gray-200"
+				placeholder="Private Room Password"
+				v-model="privateRoomPassword"
+			/>
+		</Modal>
 
-	<div class="w-full flex">
-		<RoomCard
-			v-for="(room, index) in rooms"
-			:key="index"
-			:room="room"
-		></RoomCard>
+		<div class="w-full flex">
+			<RoomCard
+				v-for="(room, index) in rooms"
+				:key="index"
+				:room="room"
+			></RoomCard>
+		</div>
 	</div>
 </template>
 
