@@ -1,4 +1,7 @@
 <template>
+	<button class="">Show Modal</button>
+	<Modal showModal="true" showSubmitBtn="true"><h1>Content</h1></Modal>
+
 	<div class="w-full flex">
 		<RoomCard
 			v-for="(room, index) in rooms"
@@ -10,11 +13,13 @@
 
 <script>
 import RoomCard from '../components/RoomCard.vue';
+import Modal from '../components/Modal.vue';
 
 export default {
 	name: 'Home',
 	components: {
-		RoomCard
+		RoomCard,
+		Modal
 	},
 	data() {
 		return {

@@ -1,0 +1,92 @@
+<template>
+	<div
+		class="fixed inset-0 w-full h-full z-50 flex"
+		id="transition"
+		v-if="showModal"
+	>
+		<div
+			class="m-auto w-2/6 bg-white p-5 rounded-md flex flex-col items-center"
+			v-if="!error"
+		>
+			<h3 class="text-xl m-5">{{ title }}</h3>
+			<slot></slot>
+
+			<div class="flex w-5/6 px-6">
+				<input
+					type="submit"
+					class="w-1/2 p-2 rounded-md m-2 bg-red-600 hover:bg-red-400 text-white cursor-pointer"
+					value="Cancel"
+					@click="close"
+				/>
+				<input
+					v-if="showSubmitBtn"
+					type="submit"
+					class="w-1/2 p-2 rounded-md m-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
+					:value="submitBtnValue"
+					@click="submit"
+				/>
+			</div>
+		</div>
+		<div
+			class="m-auto w-2/6 bg-white p-5 rounded-md flex flex-col items-center"
+			v-else
+		>
+			<h3 class="text-2xl m-5 text-red-500">Unkown error!</h3>
+			<button
+				type="submit"
+				class="w-5/6 p-2 rounded-md m-5 bg-red-500 hover:bg-red-400 text-white cursor-pointer"
+				@click="close"
+			>
+				Close
+			</button>
+		</div>
+	</div>
+</template>
+
+<script>
+export default {
+	name: 'Modal',
+	props: {
+		showModal: {
+			type: Boolean,
+			default: false
+		},
+		showSubmitBtn: {
+			type: Boolean,
+			default: false
+		},
+		submitBtnValue: {
+			type: String,
+			default: 'Submit'
+		},
+		title: {
+			type: String,
+			default: 'Modal Title'
+		}
+	},
+	emits: ['close', 'submit'],
+	methods: {
+		close() {
+			this.$emit('close');
+		},
+		submit() {
+			this.$emit('submit');
+		}
+	}
+};
+</script>
+
+<style scoped>
+#transition {
+	animation: fadeIn 0.05s;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+@keyframes fadeIn {
+	0% {
+		background-color: rgba(0, 0, 0, 0);
+	}
+	100% {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+}
+</style>
