@@ -1,32 +1,15 @@
 <template>
-	<div>
-		<RoomCard></RoomCard>
+	<div class="h-screen w-screen">
+		<div class="m-auto">
+			<h2>ChatBubble</h2>
+			<p>Free and Open Source Chatting platform!</p>
+			<router-link to="/rooms" class="">Start chatting!</router-link>
+		</div>
 	</div>
 </template>
 
 <script>
-import RoomCard from '../components/RoomCard.vue';
-
 export default {
-	name: 'Home',
-	components: {
-		RoomCard
-	},
-	data() {
-		return {
-			rooms: []
-		};
-	},
-	methods: {
-		async getRooms() {
-			const request = await this.axios.get('/api/rooms');
-			const result = await request.data;
-			this.rooms = result;
-		}
-	},
-	created() {
-		this.getRooms();
-		console.log(this.rooms);
-	}
+	name: 'Home'
 };
 </script>
