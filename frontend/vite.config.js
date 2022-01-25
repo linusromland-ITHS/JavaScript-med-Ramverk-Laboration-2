@@ -1,45 +1,43 @@
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
+import vue from '@vitejs/plugin-vue';
 
-// https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
-		vue(),
 		VitePWA({
 			manifest: {
-				background_color: 'grey',
+				background_color: '#0f172a',
 				display: 'standalone',
 				icons: [
 					{
-						src: 'public/manifest-icon-192.maskable.png',
+						purpose: 'any',
 						sizes: '192x192',
-						type: 'image/png',
-						purpose: 'any'
+						src: 'manifest-icon-192.maskable.png',
+						type: 'image/png'
 					},
 					{
-						src: 'public/manifest-icon-192.maskable.png',
+						purpose: 'maskable',
 						sizes: '192x192',
-						type: 'image/png',
-						purpose: 'maskable'
+						src: 'manifest-icon-192.maskable.png',
+						type: 'image/png'
 					},
 					{
-						src: 'public/manifest-icon-512.maskable.png',
+						purpose: 'any',
 						sizes: '512x512',
-						type: 'image/png',
-						purpose: 'any'
+						src: 'manifest-icon-512.maskable.png',
+						type: 'image/png'
 					},
 					{
-						src: 'public/manifest-icon-512.maskable.png',
+						purpose: 'maskable',
 						sizes: '512x512',
-						type: 'image/png',
-						purpose: 'maskable'
+						src: 'manifest-icon-512.maskable.png',
+						type: 'image/png'
 					}
 				],
 				name: 'ChatBubble',
-				short_name: 'ChatBubble',
+				short_name: 'ChtBbl',
 				start_url: '.',
-				theme_color: 'blue'
+				theme_color: '#3b82f6'
 			},
 			registerType: 'autoUpdate',
 			workbox: {
@@ -51,10 +49,21 @@ export default defineConfig({
 				runtimeCaching: [
 					{
 						handler: 'NetworkFirst',
-						urlPattern: '/api/room/'
+						// Cache GET requests to https://avancera.app/cities/
+						urlPattern: 'https://avancera.app/cities/'
+					},
+					{
+						handler: 'NetworkFirst',
+						// Regular expression to cache GET requests to
+						// “https://avancera.app/cities/ID” (with or without a trailing
+						// slash)
+						urlPattern: new RegExp(
+							'https://avancera.app/cities/[0-9a-f-]+/?'
+						)
 					}
 				]
 			}
-		})
+		}),
+		vue()
 	]
 });

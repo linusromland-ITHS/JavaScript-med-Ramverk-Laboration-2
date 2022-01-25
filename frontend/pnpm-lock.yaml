@@ -16,6 +16,7 @@ specifiers:
   vue-axios: ^3.4.0
   vue-router: '4'
   vuex: '4'
+  workbox-window: ^6.4.2
 
 dependencies:
   axios: 0.25.0
@@ -35,6 +36,7 @@ devDependencies:
   tailwindcss: 3.0.15_ef48b3b8837f8a23677bffe8f9cd866d
   vite: 2.7.13
   vite-plugin-pwa: 0.11.13_vite@2.7.13
+  workbox-window: 6.4.2
 
 packages:
 
