@@ -1,6 +1,6 @@
 <template>
 	<Navbar />
-	<div class="bg-slate-700">
+	<div>
 		<button
 			@click="createModal = true"
 			class="p-2 rounded-md m-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
@@ -11,7 +11,7 @@
 			v-if="createModal"
 			@close="createModal = false"
 			@submit="createRoom"
-			showSubmitBtn="true"
+			:showSubmitBtn="true"
 			submitBtnValue="Create Room"
 			title="Create Room"
 			:error="error"
@@ -21,12 +21,14 @@
 				type="text"
 				class="w-5/6 p-2 m-5 rounded-md bg-gray-200"
 				placeholder="Room Name"
+				autocomplete="off"
 				v-model="roomName"
 			/>
 			<input
 				type="password"
 				class="w-5/6 p-2 m-5 mt-0 rounded-md bg-gray-200"
 				placeholder="Admin Password"
+				autocomplete="off"
 				v-model="adminPassword"
 			/>
 			<div class="flex align-center">
@@ -42,11 +44,12 @@
 				type="password"
 				class="w-5/6 p-2 m-5 rounded-md bg-gray-200"
 				placeholder="Private Room Password"
+				autocomplete="off"
 				v-model="privateRoomPassword"
 			/>
 		</Modal>
 
-		<div class="w-full flex">
+		<div class="w-full flex flex-wrap">
 			<RoomCard
 				v-for="(room, index) in rooms"
 				:key="index"
