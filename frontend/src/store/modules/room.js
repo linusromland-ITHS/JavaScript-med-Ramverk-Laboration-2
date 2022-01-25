@@ -4,10 +4,9 @@ const state = {
 };
 
 const mutations = {
-	joinRoom(obj) {
-		console.log(obj);
-		this.state.roomId = obj.roomId;
-		this.state.password = obj.password;
+	joinRoom(state, obj) {
+		state.roomId = obj.roomId;
+		state.password = obj.password;
 	}
 };
 

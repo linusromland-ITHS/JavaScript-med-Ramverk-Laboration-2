@@ -9,11 +9,51 @@
 					></a
 				>
 				<div class="relative flex items-center ml-auto">
-					<a href="#" class="text-slate-200 hover:text-sky-500"
-						>Change Username</a
+					<a
+						@click="usernameModal = true"
+						class="text-slate-200 cursor-pointer"
 					>
+						Username:<span
+							class="pl-2 text-slate-300 font-semibold"
+							>{{ username ? username : 'Not Set' }}</span
+						>
+
+						<span class="font-sm text-slate-400 hover:text-sky-200">
+							(change)</span
+						>
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<usernameModal v-if="usernameModal" @close="usernameSet" />
 </template>
+
+<script>
+import usernameModal from './usernameModal.vue';
+
+export default {
+	name: 'Navbar',
+	components: {
+		usernameModal
+	},
+	data() {
+		return {
+			usernameModal: '',
+			username: ''
+		};
+	},
+	methods: {
+		usernameSet() {
+			this.username = localStorage.username;
+			this.usernameModal = false;
+		}
+	},
+	created() {
+		if (!localStorage.username) {
+			this.usernameModal = true;
+		}
+		this.username = localStorage.username;
+	}
+};
+</script>
