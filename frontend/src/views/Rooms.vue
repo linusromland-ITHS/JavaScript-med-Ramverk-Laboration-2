@@ -1,4 +1,5 @@
 <template>
+	<Navbar />
 	<button
 		@click="createModal = true"
 		class="p-2 rounded-md m-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
@@ -56,12 +57,14 @@
 <script>
 import RoomCard from '../components/RoomCard.vue';
 import Modal from '../components/Modal.vue';
+import Navbar from '../components/Navbar.vue';
 
 export default {
 	name: 'Home',
 	components: {
 		RoomCard,
-		Modal
+		Modal,
+		Navbar
 	},
 	data() {
 		return {
