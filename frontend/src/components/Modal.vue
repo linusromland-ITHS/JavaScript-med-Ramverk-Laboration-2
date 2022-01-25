@@ -1,15 +1,12 @@
 <template>
-	<div
-		class="fixed inset-0 w-full h-full z-50 flex"
-		id="transition"
-		v-if="showModal"
-	>
+	<div class="fixed inset-0 w-full h-full z-50 flex" id="transition">
 		<div
 			class="m-auto w-2/6 bg-white p-5 rounded-md flex flex-col items-center"
 			v-if="!error"
 		>
 			<h3 class="text-xl m-5">{{ title }}</h3>
 			<slot></slot>
+			<h3 class="m-5 text-red-500">{{ errorMessage }}</h3>
 
 			<div class="flex w-5/6 px-6">
 				<input
@@ -31,7 +28,7 @@
 			class="m-auto w-2/6 bg-white p-5 rounded-md flex flex-col items-center"
 			v-else
 		>
-			<h3 class="text-2xl m-5 text-red-500">Unkown error!</h3>
+			<h3 class="text-2xl m-5 text-red-500">{{ errorMessage }}</h3>
 			<button
 				type="submit"
 				class="w-5/6 p-2 rounded-md m-5 bg-red-500 hover:bg-red-400 text-white cursor-pointer"
@@ -47,10 +44,6 @@
 export default {
 	name: 'Modal',
 	props: {
-		showModal: {
-			type: Boolean,
-			default: false
-		},
 		showSubmitBtn: {
 			type: Boolean,
 			default: false
@@ -62,6 +55,14 @@ export default {
 		title: {
 			type: String,
 			default: 'Modal Title'
+		},
+		error: {
+			type: Boolean,
+			default: false
+		},
+		errorMessage: {
+			type: String,
+			default: ''
 		}
 	},
 	emits: ['close', 'submit'],
