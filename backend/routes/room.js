@@ -3,6 +3,11 @@ module.exports = (function () {
 	const router = express.Router();
 	const RoomDB = require('../RoomDB');
 
+	/**
+	@route GET /api/room/
+	@desc Get all rooms
+	@access Public
+	*/
 	router.get('/', async (req, res) => {
 		const rooms = await RoomDB.getAll();
 		if (!rooms) res.send().status(500);
@@ -10,22 +15,39 @@ module.exports = (function () {
 		res.send(rooms).status(200);
 	});
 
+	/**
+	@route GET /api/room/:id/
+	@desc Get one room
+	@access Public
+	@param {string} id - The id of the room 
+	*/
 	router.get('/:id/', async (req, res) => {
 		const room = await RoomDB.getRoom(req.params.id);
 		if (!room) res.send().status(500);
-		else
-			res.send({
-				name: room.name,
-				private: room.private,
-				messages: room.messages
-			}).status(200);
+		else res.send(room).status(200);
 	});
 
+	/**
+	 * @route POST /api/room/checkPassword/:id/
+	 * @desc Check if the password is correct
+	 * @access Public
+	 * @param {string} id - The id of the room
+	 * @param {string} password - The password of the room
+	 */
 	router.post('/checkPassword/:id/', async (req, res) => {
 		const room = await RoomDB.getFullRoom(req.params.id);
 		res.send(room.password === req.body.password).status(200);
 	});
 
+	/**
+	 * @route POST /api/room/new
+	 * @desc Create a new room
+	 * @access Public
+	 * @param {string} name - The name of the room
+	 * @param {string} password - The password of the room
+	 * @param {string} adminPassword - The adminPassword of the room
+	 * @param {boolean} private - Is the room private
+	 */
 	router.post('/new', async (req, res) => {
 		const name = req.body.name;
 		const private = req.body.private;
