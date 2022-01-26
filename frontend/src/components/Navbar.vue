@@ -11,15 +11,16 @@
 				<div class="relative flex items-center ml-auto">
 					<a
 						@click="usernameModal = true"
-						class="text-slate-200 cursor-pointer"
+						class="text-slate-200 cursor-pointer text-md"
 					>
-						Username:<span
-							class="pl-2 text-slate-300 font-semibold"
-							>{{ username ? username : 'Not Set' }}</span
-						>
-
-						<span class="font-sm text-slate-400 hover:text-sky-200">
-							(change)</span
+						<span class="text-slate-300 font-bold">
+							Username:
+						</span>
+						<span class="px-2">{{
+							username ? username : 'Not Set'
+						}}</span>
+						<span class="text-sm text-slate-400 hover:text-sky-200"
+							>(change)</span
 						>
 					</a>
 				</div>
