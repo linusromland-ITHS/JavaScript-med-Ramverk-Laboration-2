@@ -1,15 +1,16 @@
 <template>
 	<div class="fixed inset-0 w-full h-full z-50 flex" id="transition">
 		<div
-			class="m-auto lg:w-2/6 md:w-4/6 w-10/12 bg-white p-5 rounded-md flex flex-col items-center"
+			class="m-auto lg:w-2/6 md:w-4/6 w-10/12 bg-slate-200 p-5 rounded-md flex flex-col items-center"
 			v-if="!error"
 		>
 			<h3 class="text-2xl m-5">{{ title }}</h3>
 			<slot></slot>
 			<h3 class="m-5 text-red-500">{{ errorMessage }}</h3>
 
-			<div class="flex w-5/6 px-6">
+			<div class="flex w-5/6 px-6 justify-center">
 				<input
+					v-if="showCancelBtn"
 					type="submit"
 					class="w-1/2 p-2 rounded-md m-2 bg-red-600 hover:bg-red-400 text-white cursor-pointer"
 					value="Cancel"
@@ -47,6 +48,10 @@ export default {
 		showSubmitBtn: {
 			type: Boolean,
 			default: false
+		},
+		showCancelBtn: {
+			type: Boolean,
+			default: true
 		},
 		submitBtnValue: {
 			type: String,

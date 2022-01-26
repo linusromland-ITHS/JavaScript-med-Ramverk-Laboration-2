@@ -3,6 +3,7 @@
 		@close="close"
 		@submit="submit"
 		:showSubmitBtn="true"
+		:showCancelBtn="false"
 		submitBtnValue="Change"
 		:title="modalTitle"
 		:errorMessage="errorMessage"

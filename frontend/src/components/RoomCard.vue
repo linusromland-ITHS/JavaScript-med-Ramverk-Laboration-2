@@ -61,25 +61,24 @@ export default {
 			if (!this.privateRoom) this.connectToRoom();
 			else this.passwordModal = true;
 		},
-		submitPassword() {
-			//TODO add password validation request
-			this.error = false;
-			this.errorMessage = '';
-			this.connectToRoom();
-		},
-		connectToRoom() {
-			this.$store
-				.commit('joinRoom', {
-					roomId: this.room._id,
+		async submitPassword() {
+			const request = await this.axios.post(
+				`/api/rooms/checkPassword/${this.room._id}`,
+				{
 					password: this.password
-				})
-				.then(() => {
-					this.$router.push('/room/' + this.room._id);
-				})
-				.catch((err) => {
-					this.error = true;
-					this.errorMessage = err.message;
-				});
+				}
+			);
+			if (request.data) {
+				this.error = false;
+				this.errorMessage = '';
+				this.connectToRoom();
+			} else {
+				this.errorMessage = 'Wrong password!';
+			}
+		},
+		async connectToRoom() {
+			this.$store.commit('joinRoom', this.password);
+			this.$router.push('/room/' + this.room._id);
 		}
 	},
 	computed: {

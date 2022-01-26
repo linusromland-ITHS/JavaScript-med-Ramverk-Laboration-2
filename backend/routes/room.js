@@ -21,7 +21,7 @@ module.exports = (function () {
 			}).status(200);
 	});
 
-	router.get('/checkPassword/:id/', async (req, res) => {
+	router.post('/checkPassword/:id/', async (req, res) => {
 		const room = await RoomDB.getFullRoom(req.params.id);
 		res.send(room.password === req.body.password).status(200);
 	});
