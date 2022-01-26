@@ -5,7 +5,10 @@
 			v-if="!error"
 		>
 			<h3 class="text-2xl m-5">{{ title }}</h3>
+
+			<!--Modal Content-->
 			<slot></slot>
+
 			<h3 class="m-5 text-red-500">{{ errorMessage }}</h3>
 
 			<div class="flex w-5/6 px-6 justify-center">
@@ -46,35 +49,49 @@ export default {
 	name: 'Modal',
 	props: {
 		showSubmitBtn: {
+			//Boolean to show submit button
 			type: Boolean,
 			default: false
 		},
 		showCancelBtn: {
+			//Boolean to show cancel button
 			type: Boolean,
 			default: true
 		},
 		submitBtnValue: {
+			//Value of submit button
 			type: String,
 			default: 'Submit'
 		},
 		title: {
+			//Title of modal
 			type: String,
 			default: 'Modal Title'
 		},
 		error: {
+			//Boolean to show error message
 			type: Boolean,
 			default: false
 		},
 		errorMessage: {
+			//Error message
 			type: String,
 			default: ''
 		}
 	},
-	emits: ['close', 'submit'],
+	emits: ['close', 'submit'], //Events emitted by this component
 	methods: {
+		/**
+		 * @name close
+		 * @description Emits to parent to close modal
+		 */
 		close() {
 			this.$emit('close');
 		},
+		/**
+		 * @name submit
+		 * @description Emits to parent to submit
+		 */
 		submit() {
 			this.$emit('submit');
 		}

@@ -1,12 +1,14 @@
 <template>
 	<Navbar />
 	<div>
+		<!--Button to show create Room Modal-->
 		<button
 			@click="createModal = true"
 			class="p-2 rounded-md m-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
 		>
 			Create Room
 		</button>
+		<!--Create Room Modal -->
 		<Modal
 			v-if="createModal"
 			@close="createModal = false"
@@ -50,6 +52,7 @@
 		</Modal>
 
 		<div class="w-full flex flex-wrap">
+			<!-- Loops through rooms and displays RoomCard -->
 			<RoomCard
 				v-for="(room, index) in rooms"
 				:key="index"
@@ -60,6 +63,7 @@
 </template>
 
 <script>
+//Components imports:
 import RoomCard from '../components/RoomCard.vue';
 import Modal from '../components/Modal.vue';
 import Navbar from '../components/Navbar.vue';
@@ -73,32 +77,41 @@ export default {
 	},
 	data() {
 		return {
-			rooms: [],
-			createModal: false,
-			roomName: '',
-			adminPassword: '',
-			privateRoom: false,
-			privateRoomPassword: '',
-			error: false,
-			errorMessage: ''
+			rooms: [], //Array of all rooms
+			createModal: false, //Boolean to show/hide the create room modal
+			roomName: '', //Room name
+			adminPassword: '', //Admin password
+			privateRoom: false, //Boolean to check if the room is private
+			privateRoomPassword: '', //Private room password
+			error: false, //Boolean to show/hide error message
+			errorMessage: '' //Error message
 		};
 	},
 	methods: {
+		/**
+		 * @name getRooms
+		 * @description - Fetches all rooms from the database
+		 */
 		async getRooms() {
 			const request = await this.axios.get('/api/rooms');
 			const result = await request.data;
 			this.rooms = result;
 		},
+		/**
+		 * @name createRoom
+		 * @description - Creates a room from the data entered in the modal
+		 */
 		createRoom() {
 			if (
 				!this.roomName ||
 				!this.adminPassword ||
 				(this.privateRoom && !this.privateRoomPassword)
 			) {
+				//Check if all fields are filled
 				this.errorMessage = 'Please fill out all fields';
 				return;
 			}
-			this.axios
+			this.axios //Post request to create room
 				.post('/api/rooms/new', {
 					name: this.roomName,
 					adminPassword: this.adminPassword,
@@ -106,6 +119,7 @@ export default {
 					password: this.privateRoomPassword
 				})
 				.then(() => {
+					//If successful, clear the modal and get all rooms
 					this.createModal = false;
 					this.roomName = '';
 					this.adminPassword = '';
@@ -114,12 +128,14 @@ export default {
 					this.getRooms();
 				})
 				.catch((error) => {
+					//If unsuccessful, show error message
 					this.errorMessage = error.response.data;
 					console.log(error.response);
 				});
 		}
 	},
 	created() {
+		//Get all rooms on page load
 		this.getRooms();
 	}
 };

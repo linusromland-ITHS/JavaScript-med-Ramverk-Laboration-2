@@ -27,10 +27,12 @@
 			</div>
 		</div>
 	</div>
+	<!--Username Modal-->
 	<usernameModal v-if="usernameModal" @close="usernameSet" />
 </template>
 
 <script>
+//Components imports:
 import usernameModal from './usernameModal.vue';
 
 export default {
@@ -40,11 +42,15 @@ export default {
 	},
 	data() {
 		return {
-			usernameModal: '',
-			username: ''
+			usernameModal: '', //Boolean to show username modal
+			username: '' //username
 		};
 	},
 	methods: {
+		/**
+		 * @name usernameSet
+		 * @description Sets the username
+		 */
 		usernameSet() {
 			this.username = localStorage.username;
 			this.usernameModal = false;
@@ -52,9 +58,10 @@ export default {
 	},
 	created() {
 		if (!localStorage.username) {
-			this.usernameModal = true;
+			//if the username is not set
+			this.usernameModal = true; //show username modal
 		}
-		this.username = localStorage.username;
+		this.username = localStorage.username; //get username from local storage
 	}
 };
 </script>

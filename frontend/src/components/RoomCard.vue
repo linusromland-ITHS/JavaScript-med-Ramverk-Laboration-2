@@ -11,6 +11,7 @@
 			<span class="font-semibold">Last Active:</span> {{ lastActive }}
 		</p>
 	</div>
+	<!--Password Modal-->
 	<Modal
 		v-if="passwordModal && privateRoom"
 		@close="passwordModal = false"
@@ -34,6 +35,7 @@
 	</Modal>
 </template>
 <script>
+//Components imports:
 import Modal from './Modal.vue';
 
 export default {
@@ -43,24 +45,33 @@ export default {
 	},
 	props: {
 		room: {
+			//Object containg room data
 			type: Object,
 			required: true
 		}
 	},
 	data() {
 		return {
-			privateRoom: false,
-			passwordModal: false,
-			error: false,
-			errorMessage: '',
-			password: ''
+			privateRoom: false, //if the room is private
+			passwordModal: false, //Boolean to show password modal
+			error: false, //if there is an error
+			errorMessage: '', //error message
+			password: '' //password
 		};
 	},
 	methods: {
+		/**
+		 * @name RoomClick
+		 * @description checks if the room is private and if it is password protected and opens the modal
+		 */
 		roomClick() {
 			if (!this.privateRoom) this.connectToRoom();
 			else this.passwordModal = true;
 		},
+		/**
+		 * @name submitPassword
+		 * @description Checks if the password is correct and if so connects to the room
+		 */
 		async submitPassword() {
 			const request = await this.axios.post(
 				`/api/rooms/checkPassword/${this.room._id}`,
@@ -76,44 +87,64 @@ export default {
 				this.errorMessage = 'Wrong password!';
 			}
 		},
+		/**
+		 * @name ConnectToRoom
+		 * @description Connects to room
+		 */
 		async connectToRoom() {
 			this.$store.commit('joinRoom', this.password);
 			this.$router.push('/room/' + this.room._id);
 		}
 	},
 	computed: {
+		/**
+		 * @name lastActive
+		 * @description Gets the last active time of the room
+		 * @returns {string}
+		 */
 		lastActive() {
 			const now = new Date();
 			let lastActive;
 
 			if (this.room.messages && this.room.messages.length > 0) {
-				lastActive = new Date(
+				// If there are messages
+				lastActive = new Date( // Get the time of the last message
 					this.room.messages[this.room.messages.length - 1].createdAt
 				);
 			} else {
-				lastActive = new Date(this.room.createdAt);
+				// If there are no messages
+				lastActive = new Date(this.room.createdAt); // Get the time of the room creation
 			}
 
-			const diff = now - lastActive;
-			const diffInMinutes = Math.round(diff / 1000 / 60);
-			const diffInHours = Math.round(diff / 1000 / 60 / 60);
-			const diffInDays = Math.round(diff / 1000 / 60 / 60 / 24);
+			const diff = now - lastActive; // Get the difference between now and the last active time
+			const diffInMinutes = Math.round(diff / 1000 / 60); // Convert to minutes
+			const diffInHours = Math.round(diff / 1000 / 60 / 60); // Convert to hours
+			const diffInDays = Math.round(diff / 1000 / 60 / 60 / 24); // Convert to days
 			if (diffInMinutes < 1) {
+				// If less than a minute
 				return 'Just now';
 			} else if (diffInMinutes < 60) {
+				// If less than an hour
 				return `${diffInMinutes} minutes ago`;
 			} else if (diffInHours < 24) {
+				// If less than a day
 				return `${diffInHours} hours ago`;
 			} else {
+				// If more than a day
 				return `${diffInDays} days ago`;
 			}
 		},
+		/**
+		 * @name roomPassModalText
+		 * @description Returns the text for the password modal
+		 * @returns {string}
+		 */
 		roomPassModalText() {
 			return `Join Room "${this.room.name}"`;
 		}
 	},
 	created() {
-		this.privateRoom = this.room.private;
+		this.privateRoom = this.room.private; //Checks if room is private on page load
 	}
 };
 </script>
