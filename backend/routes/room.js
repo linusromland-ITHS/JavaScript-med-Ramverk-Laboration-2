@@ -1,7 +1,12 @@
 module.exports = (function () {
+	//External Dependencies import:
 	const express = require('express');
-	const router = express.Router();
+
+	//Local Dependencies Import:
 	const RoomDB = require('../RoomDB');
+
+	//Variable Declarations:
+	const router = express.Router();
 
 	/**
 	@route GET /api/room/
