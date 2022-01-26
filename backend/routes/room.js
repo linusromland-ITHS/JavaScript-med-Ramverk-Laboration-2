@@ -3,6 +3,29 @@ module.exports = (function () {
 	const router = express.Router();
 	const RoomDB = require('../RoomDB');
 
+	router.get('/', async (req, res) => {
+		const rooms = await RoomDB.getAll();
+		if (!rooms) res.send().status(500);
+
+		res.send(rooms).status(200);
+	});
+
+	router.get('/:id/', async (req, res) => {
+		const room = await RoomDB.getRoom(req.params.id);
+		if (!room) res.send().status(500);
+		else
+			res.send({
+				name: room.name,
+				private: room.private,
+				messages: room.messages
+			}).status(200);
+	});
+
+	router.get('/checkPassword/:id/', async (req, res) => {
+		const room = await RoomDB.getFullRoom(req.params.id);
+		res.send(room.password === req.body.password).status(200);
+	});
+
 	router.post('/new', async (req, res) => {
 		const name = req.body.name;
 		const private = req.body.private;
@@ -22,24 +45,6 @@ module.exports = (function () {
 		);
 		if (!room) res.send().status(500);
 		else res.send(room).status(200);
-	});
-
-	router.get('/', async (req, res) => {
-		const rooms = await RoomDB.getAll();
-		if (!rooms) res.send().status(500);
-
-		res.send(rooms).status(200);
-	});
-
-	router.get('/:id/', async (req, res) => {
-		const room = await RoomDB.getRoom(req.params.id);
-		if (!room) res.send().status(500);
-		else
-			res.send({
-				name: room.name,
-				private: room.private,
-				messages: room.messages
-			}).status(200);
 	});
 
 	return router;

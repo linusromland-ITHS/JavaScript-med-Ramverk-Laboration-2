@@ -17,6 +17,14 @@ exports.getByName = async (name) => {
 };
 
 exports.getRoom = async (id) => {
+	const room = await Room.findOne(
+		{ _id: ObjectID(id) },
+		'-password -adminPassword'
+	);
+	return room;
+};
+
+exports.getFullRoom = async (id) => {
 	const room = await Room.findOne({ _id: ObjectID(id) });
 	return room;
 };
