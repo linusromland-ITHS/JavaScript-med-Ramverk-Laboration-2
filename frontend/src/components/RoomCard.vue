@@ -33,6 +33,18 @@
 			v-model="password"
 		/>
 	</Modal>
+
+	<!--Network error Modal-->
+	<Modal
+		v-if="offlineErrorModal"
+		@close="offlineErrorModal = false"
+		:showSubmitBtn="false"
+		title="Network error!"
+	>
+		<p>
+			You need to be online to connect to a room! Go online and try again!
+		</p>
+	</Modal>
 </template>
 <script>
 //Components imports:
@@ -56,6 +68,7 @@ export default {
 			passwordModal: false, //Boolean to show password modal
 			error: false, //if there is an error
 			errorMessage: '', //error message
+			offlineErrorModal: false, //Boolean to show offline error modal
 			password: '' //password
 		};
 	},
@@ -65,6 +78,11 @@ export default {
 		 * @description checks if the room is private and if it is password protected and opens the modal
 		 */
 		roomClick() {
+			if (!navigator.onLine) {
+				//If offline, show error message
+				this.offlineErrorModal = true;
+				return;
+			}
 			if (!this.privateRoom) this.connectToRoom();
 			else this.passwordModal = true;
 		},

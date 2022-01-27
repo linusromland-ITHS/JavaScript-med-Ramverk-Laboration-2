@@ -3,7 +3,7 @@
 	<div>
 		<!--Button to show create Room Modal-->
 		<button
-			@click="createModal = true"
+			@click="showCreateRoom"
 			class="p-2 rounded-md m-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
 		>
 			Create Room
@@ -51,6 +51,18 @@
 			/>
 		</Modal>
 
+		<!--Network error Modal-->
+		<Modal
+			v-if="offlineErrorModal"
+			@close="offlineErrorModal = false"
+			:showSubmitBtn="false"
+			title="Network error!"
+		>
+			<p>
+				You need to be online to create a room! Go online and try again!
+			</p>
+		</Modal>
+
 		<div class="w-full flex flex-wrap">
 			<!-- Loops through rooms and displays RoomCard -->
 			<RoomCard
@@ -79,6 +91,7 @@ export default {
 		return {
 			rooms: [], //Array of all rooms
 			createModal: false, //Boolean to show/hide the create room modal
+			offlineErrorModal: false, //Boolean to show/hide the network error modal
 			roomName: '', //Room name
 			adminPassword: '', //Admin password
 			privateRoom: false, //Boolean to check if the room is private
@@ -132,6 +145,17 @@ export default {
 					this.errorMessage = error.response.data;
 					console.log(error.response);
 				});
+		},
+		/**
+		 * @name showCreateRoom
+		 * @description - Shows the create room modal
+		 */
+		showCreateRoom() {
+			if (navigator.onLine) {
+				this.createModal = true;
+			} else {
+				this.offlineErrorModal = true;
+			}
 		}
 	},
 	created() {

@@ -9,9 +9,11 @@
 			<!--Modal Content-->
 			<slot></slot>
 
-			<h3 class="m-5 text-red-500">{{ errorMessage }}</h3>
+			<h3 class="m-2 text-red-500" v-if="errorMessage != ''">
+				{{ errorMessage }}
+			</h3>
 
-			<div class="flex w-5/6 px-6 justify-center">
+			<div class="flex w-5/6 px-6 justify-center mt-5">
 				<input
 					v-if="showCancelBtn"
 					type="submit"

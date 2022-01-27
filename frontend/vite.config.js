@@ -49,17 +49,8 @@ export default defineConfig({
 				runtimeCaching: [
 					{
 						handler: 'NetworkFirst',
-						// Cache GET requests to https://avancera.app/cities/
-						urlPattern: 'https://avancera.app/cities/'
-					},
-					{
-						handler: 'NetworkFirst',
-						// Regular expression to cache GET requests to
-						// “https://avancera.app/cities/ID” (with or without a trailing
-						// slash)
-						urlPattern: new RegExp(
-							'https://avancera.app/cities/[0-9a-f-]+/?'
-						)
+						// Cache GET requests to /api/rooms/
+						urlPattern: '/api/rooms/'
 					}
 				]
 			}
