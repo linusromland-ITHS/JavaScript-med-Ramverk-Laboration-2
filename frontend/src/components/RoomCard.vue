@@ -22,7 +22,7 @@
 		:error="error"
 		:errorMessage="errorMessage"
 	>
-		<p>
+		<p class="text-black">
 			This room is password protected. Enter the password below to join.
 		</p>
 		<input
@@ -41,7 +41,7 @@
 		:showSubmitBtn="false"
 		title="Network error!"
 	>
-		<p>
+		<p class="text-black">
 			You need to be online to connect to a room! Go online and try again!
 		</p>
 	</Modal>

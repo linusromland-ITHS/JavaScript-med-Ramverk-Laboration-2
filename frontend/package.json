@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"axios": "^0.25.0",
+		"daisyui": "^1.25.4",
 		"vue": "^3.2.25",
 		"vue-axios": "^3.4.0",
 		"vue-router": "4",

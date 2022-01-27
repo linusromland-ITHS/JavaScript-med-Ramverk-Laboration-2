@@ -1,13 +1,24 @@
 <template>
 	<Navbar />
-	<div>
-		<!--Button to show create Room Modal-->
-		<button
-			@click="showCreateRoom"
-			class="p-2 rounded-md m-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
-		>
-			Create Room
-		</button>
+	<div class="mx-5">
+		<div class="lg:flex lg:justify-between lg:align-center m-4">
+			<div>
+				<h1 class="text-5xl text-bold text-sky-500">Rooms</h1>
+				<p class="text-xl my-2">
+					To join a room, just click the room you want to join below
+					and start chatting!
+				</p>
+			</div>
+
+			<!--Button to show create Room Modal-->
+			<button
+				@click="showCreateRoom"
+				class="p-6 rounded-md my-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
+			>
+				Create Room
+			</button>
+		</div>
+
 		<!--Create Room Modal -->
 		<Modal
 			v-if="createModal"
@@ -39,7 +50,7 @@
 					class="w-6 h-6 m-1 rounded-md bg-gray-200"
 					v-model="privateRoom"
 				/>
-				<p class="p-1 m-1">Private Room</p>
+				<p class="p-1 m-1 text-black">Private Room</p>
 			</div>
 			<input
 				v-if="privateRoom"
@@ -58,10 +69,12 @@
 			:showSubmitBtn="false"
 			title="Network error!"
 		>
-			<p>
+			<p class="text-black">
 				You need to be online to create a room! Go online and try again!
 			</p>
 		</Modal>
+
+		<div class="divider"></div>
 
 		<div class="w-full flex flex-wrap">
 			<!-- Loops through rooms and displays RoomCard -->

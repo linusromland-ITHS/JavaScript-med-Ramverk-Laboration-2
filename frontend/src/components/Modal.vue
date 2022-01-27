@@ -4,7 +4,7 @@
 			class="m-auto lg:w-2/6 md:w-4/6 w-10/12 bg-white p-5 rounded-md flex flex-col items-center"
 			v-if="!error"
 		>
-			<h3 class="text-2xl m-5">{{ title }}</h3>
+			<h3 class="text-2xl m-5 text-black">{{ title }}</h3>
 
 			<!--Modal Content-->
 			<slot></slot>
