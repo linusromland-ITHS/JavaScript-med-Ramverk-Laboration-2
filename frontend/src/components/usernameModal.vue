@@ -21,6 +21,7 @@
 			class="w-5/6 p-2 m-5 mb-0 rounded-md bg-gray-200"
 			placeholder="Username"
 			autocomplete="off"
+			maxlength="16"
 			v-model="username"
 		/>
 	</Modal>

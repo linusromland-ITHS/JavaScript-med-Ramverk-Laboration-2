@@ -1,29 +1,25 @@
 <template>
-	<div class="flex-none bg-slate-900 px-6 h-16">
-		<div class="mx-auto">
-			<div class="py-4 flex justify-between">
-				<a href="/rooms" class="flex">
-					<img src="../assets/icon.svg" class="invert h-8" />
-					<span class="pl-2 text-sky-500 font-semibold text-xl"
-						>ChatBubble</span
-					></a
+	<div class="bg-slate-900 px-6 h-16">
+		<div class="py-4 flex justify-between">
+			<a href="/rooms" class="flex">
+				<img src="../assets/icon.svg" class="invert h-8" />
+				<span class="pl-2 text-sky-500 font-semibold text-xl"
+					>ChatBubble</span
+				></a
+			>
+			<div class="relative flex items-center ml-auto">
+				<a
+					@click="usernameModal = true"
+					class="text-slate-200 cursor-pointer text-right text-md"
 				>
-				<div class="relative flex items-center ml-auto">
-					<a
-						@click="usernameModal = true"
-						class="text-slate-200 cursor-pointer text-md"
+					<span class="text-slate-300 font-bold"> Username: </span>
+					<span class="px-2">{{
+						username ? username : 'Not Set'
+					}}</span>
+					<span class="text-sm text-slate-400 hover:text-sky-200"
+						>(change)</span
 					>
-						<span class="text-slate-300 font-bold">
-							Username:
-						</span>
-						<span class="px-2">{{
-							username ? username : 'Not Set'
-						}}</span>
-						<span class="text-sm text-slate-400 hover:text-sky-200"
-							>(change)</span
-						>
-					</a>
-				</div>
+				</a>
 			</div>
 		</div>
 	</div>
