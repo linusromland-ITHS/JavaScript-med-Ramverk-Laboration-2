@@ -2,7 +2,7 @@ defaults:
     run:
         working-directory: ./backend
 
-name: CI
+name: Backend ESLint CI
 on: push
 jobs:
     build:
