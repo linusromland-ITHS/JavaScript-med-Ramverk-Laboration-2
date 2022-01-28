@@ -24,17 +24,17 @@
 		</div>
 	</div>
 	<!--Username Modal-->
-	<usernameModal v-if="usernameModal" @close="usernameSet" />
+	<UsernameModal v-if="usernameModal" @close="usernameSet" />
 </template>
 
 <script>
 //Components imports:
-import usernameModal from './usernameModal.vue';
+import UsernameModal from './UsernameModal.vue';
 
 export default {
 	name: 'Navbar',
 	components: {
-		usernameModal
+		UsernameModal
 	},
 	data() {
 		return {
