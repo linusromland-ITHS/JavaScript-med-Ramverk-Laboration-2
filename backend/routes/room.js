@@ -51,6 +51,23 @@ module.exports = (function () {
 	});
 
 	/**
+	 * @route POST /api/room/deleteRoom/:id/
+	 * @desc Deletes the room
+	 * @access Private
+	 * @param {string} id - The id of the room
+	 */
+	router.post('/deleteRoom/:id', async (req, res) => {
+		//Check if adminPassword is correct
+		const room = await RoomDB.getFullRoom(req.params.id);
+		if (req.body.password !== room.adminPassword) {
+			res.send().status(401);
+		} else {
+			await RoomDB.deleteRoom(req.params.id);
+			res.send().status(200);
+		}
+	});
+
+	/**
 	 * @route POST /api/room/checkPassword/:id/
 	 * @desc Check if the password is correct
 	 * @access Public

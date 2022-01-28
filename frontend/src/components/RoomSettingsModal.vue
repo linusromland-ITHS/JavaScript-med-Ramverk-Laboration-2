@@ -139,6 +139,15 @@ export default {
 			);
 			this.room = response.data;
 			this.$emit('update', response.data);
+		},
+		deleteRoomSubmit() {
+			this.axios
+				.post(`/api/rooms/deleteRoom/${this.room._id}`, {
+					password: this.adminPassword
+				})
+				.then(() => {
+					this.$router.push('/rooms');
+				});
 		}
 	},
 	mounted() {
