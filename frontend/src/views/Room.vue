@@ -2,15 +2,15 @@
 	<Navbar />
 	<div class="mx-5">
 		<div class="h-16 border-b-2 border-slate-900">
-			<div class="lg:flex lg:justify-between lg:align-center">
+			<div class="lg:flex lg:justify-between lg:items-center">
 				<h1 class="text-3xl text-bold text-sky-500 p-4">
 					{{ room.name }}
 				</h1>
 
 				<!--Button to show create Room Modal-->
 				<button
-					@click="showCreateRoom"
-					class="p-1 rounded-md m-2 bg-gray-500 hover:bg-gray-400 text-white cursor-pointer"
+					@click="roomSettingsModal = true"
+					class="p-1 rounded-md m-2 bg-gray-500 hover:bg-gray-400 h-10 text-white cursor-pointer"
 				>
 					Admin Settings
 				</button>
@@ -22,7 +22,7 @@
 				<p>From:{{ message.sender }}</p>
 			</div>
 		</div>
-		<div class="w-full flex mt-1">
+		<div class="w-full flex mt-1 items-center justify-center">
 			<input
 				type="text"
 				name="Message"
@@ -36,27 +36,36 @@
 			/>
 			<button
 				@click="sendMessage"
-				class="w-1/12 p-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer rounded-r-md mr-12"
+				class="w-1/12 p-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer rounded-r-md"
 			>
 				Send
 			</button>
 		</div>
 	</div>
+	<RoomSettingsModal
+		v-if="roomSettingsModal"
+		@close="roomSettingsModal = false"
+		@update="updateData"
+		:roomObj="room"
+	/>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue';
+import RoomSettingsModal from '../components/RoomSettingsModal.vue';
 
 export default {
 	name: 'Room',
 	components: {
-		Navbar
+		Navbar,
+		RoomSettingsModal
 	},
 	data() {
 		return {
 			room: {},
 			messages: [],
-			messageInput: '' //
+			messageInput: '',
+			roomSettingsModal: false
 		};
 	},
 	methods: {
@@ -65,7 +74,10 @@ export default {
 				`/api/rooms/${this.$route.params.roomId}`
 			);
 			this.room = response.data;
-			this.messages = response.data.messages; //Get messages
+			if (response.data.messages) this.messages = response.data.messages; //Get messages
+		},
+		updateData(data) {
+			this.room = data;
 		},
 		sendMessage() {
 			this.$socket.emit('message', {

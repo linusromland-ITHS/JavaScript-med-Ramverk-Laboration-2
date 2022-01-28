@@ -1,22 +1,24 @@
 <template>
 	<Navbar />
 	<div class="mx-5">
-		<div class="lg:flex lg:justify-between lg:align-center m-4">
-			<div>
-				<h1 class="text-5xl text-bold text-sky-500">Rooms</h1>
-				<p class="text-xl my-2">
-					To join a room, just click the room you want to join below
-					and start chatting!
-				</p>
-			</div>
+		<div class="h-28 border-b-2 border-slate-900 flex items-center">
+			<div class="lg:flex lg:justify-between items-center w-full">
+				<div class="flex flex-col justify-around">
+					<h1 class="text-4xl text-bold text-sky-500">Rooms</h1>
+					<p class="text-xl my-2">
+						To join a room, just click the room you want to join
+						below and start chatting!
+					</p>
+				</div>
 
-			<!--Button to show create Room Modal-->
-			<button
-				@click="showCreateRoom"
-				class="p-6 rounded-md my-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer"
-			>
-				Create Room
-			</button>
+				<!--Button to show create Room Modal-->
+				<button
+					@click="showCreateRoom"
+					class="bg-blue-500 hover:bg-blue-400 text-white p-1 rounded-md m-2 h-12 cursor-pointer"
+				>
+					Create Room
+				</button>
+			</div>
 		</div>
 
 		<!--Create Room Modal -->
@@ -32,14 +34,14 @@
 		>
 			<input
 				type="text"
-				class="w-5/6 p-2 m-5 rounded-md bg-gray-200"
+				class="w-5/6 p-2 m-5 rounded-md bg-gray-200 text-black"
 				placeholder="Room Name"
 				autocomplete="off"
 				v-model="roomName"
 			/>
 			<input
 				type="password"
-				class="w-5/6 p-2 m-5 mt-0 rounded-md bg-gray-200"
+				class="w-5/6 p-2 m-5 mt-0 rounded-md bg-gray-200 text-black"
 				placeholder="Admin Password"
 				autocomplete="off"
 				v-model="adminPassword"
@@ -47,7 +49,7 @@
 			<div class="flex align-center">
 				<input
 					type="checkbox"
-					class="w-6 h-6 m-1 rounded-md bg-gray-200"
+					class="w-6 h-6 m-1 rounded-md bg-gray-200 text-black"
 					v-model="privateRoom"
 				/>
 				<p class="p-1 m-1 text-black">Private Room</p>
@@ -88,8 +90,6 @@
 				again!
 			</p>
 		</Modal>
-
-		<div class="divider"></div>
 
 		<div class="w-full flex flex-wrap">
 			<!-- Loops through rooms and displays RoomCard -->
