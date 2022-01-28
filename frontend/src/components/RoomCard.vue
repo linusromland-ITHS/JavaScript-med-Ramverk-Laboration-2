@@ -127,7 +127,7 @@ export default {
 			if (this.room.messages && this.room.messages.length > 0) {
 				// If there are messages
 				lastActive = new Date( // Get the time of the last message
-					this.room.messages[this.room.messages.length - 1].createdAt
+					this.room.messages[this.room.messages.length - 1].sentAt
 				);
 			} else {
 				// If there are no messages
