@@ -42,3 +42,7 @@ exports.addMessage = async (id, message, sender) => {
 
 	return messageObj;
 };
+
+exports.updateRoomName = async (id, name) => {
+	await Room.findOneAndUpdate({ _id: ObjectID(id) }, { $set: { name } });
+};

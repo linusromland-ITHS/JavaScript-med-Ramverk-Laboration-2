@@ -33,6 +33,24 @@ module.exports = (function () {
 	});
 
 	/**
+	 * @route POST /api/room/updateRoomName/:id/
+	 * @desc Update the name of a room
+	 * @access Private
+	 * @param {string} id - The id of the room
+	 * @param {string} name - The new name of the room
+	 */
+	router.post('/updateRoomName/:id', async (req, res) => {
+		//Check if adminPassword is correct
+		const room = await RoomDB.getFullRoom(req.params.id);
+		if (req.body.password !== room.adminPassword) {
+			res.send().status(401);
+		} else {
+			await RoomDB.updateRoomName(req.params.id, req.body.name);
+			res.send(room).status(200);
+		}
+	});
+
+	/**
 	 * @route POST /api/room/checkPassword/:id/
 	 * @desc Check if the password is correct
 	 * @access Public
@@ -42,6 +60,18 @@ module.exports = (function () {
 	router.post('/checkPassword/:id/', async (req, res) => {
 		const room = await RoomDB.getFullRoom(req.params.id);
 		res.send(room.password === req.body.password).status(200);
+	});
+
+	/**
+	 * @route POST /api/room/checkAdminPassword/:id/
+	 * @desc Check if the admin password is correct
+	 * @access Public
+	 * @param {string} id - The id of the room
+	 * @param {string} password - The password of the room
+	 */
+	router.post('/checkAdminPassword/:id/', async (req, res) => {
+		const room = await RoomDB.getFullRoom(req.params.id);
+		res.send(room.adminPassword === req.body.password).status(200);
 	});
 
 	/**
