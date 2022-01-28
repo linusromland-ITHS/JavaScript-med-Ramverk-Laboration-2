@@ -1,32 +1,46 @@
 <template>
 	<Navbar />
 	<div class="mx-5">
-		<div class="lg:flex lg:justify-between lg:align-center m-4">
-			<h1 class="text-3xl text-bold text-sky-500 p-4">{{ room.name }}</h1>
+		<div class="h-16 border-b-2 border-slate-900">
+			<div class="lg:flex lg:justify-between lg:align-center">
+				<h1 class="text-3xl text-bold text-sky-500 p-4">
+					{{ room.name }}
+				</h1>
 
-			<!--Button to show create Room Modal-->
-			<button
-				@click="showCreateRoom"
-				class="p-2 rounded-md my-2 bg-gray-500 hover:bg-gray-400 text-white cursor-pointer"
-			>
-				Admin Settings
-			</button>
+				<!--Button to show create Room Modal-->
+				<button
+					@click="showCreateRoom"
+					class="p-1 rounded-md m-2 bg-gray-500 hover:bg-gray-400 text-white cursor-pointer"
+				>
+					Admin Settings
+				</button>
+			</div>
 		</div>
-
-		<div class="divider"></div>
-		<div id="messages">
+		<div id="messages" class="mt-2 scroll-smooth" ref="messages">
 			<div v-for="(message, index) in messages" :key="index">
 				<p>{{ message.message }}</p>
 				<p>From:{{ message.sender }}</p>
 			</div>
 		</div>
-		<input
-			type="text"
-			name="Message"
-			class="text-black"
-			v-model="messageInput"
-		/>
-		<button @click="sendMessage">Send</button>
+		<div class="w-full flex mt-1">
+			<input
+				type="text"
+				name="Message"
+				id="messageInput"
+				class="text-black w-11/12 p-2 rounded-l-md"
+				placeholder="Type your message here..."
+				v-model="messageInput"
+				@keyup.enter="sendMessage"
+				autofocus="true"
+				ref="input"
+			/>
+			<button
+				@click="sendMessage"
+				class="w-1/12 p-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer rounded-r-md mr-12"
+			>
+				Send
+			</button>
+		</div>
 	</div>
 </template>
 
@@ -42,7 +56,7 @@ export default {
 		return {
 			room: {},
 			messages: [],
-			messageInput: ''
+			messageInput: '' //
 		};
 	},
 	methods: {
@@ -59,12 +73,12 @@ export default {
 				message: this.messageInput,
 				sender: localStorage.username
 			});
-			this.message = '';
+			this.messageInput = '';
+			this.$refs['input'].value = '';
 		}
 	},
 	mounted() {
 		this.fetchRoom(); //Get room data
-
 		this.sockets.subscribe(this.$route.params.roomId, function (message) {
 			//Listen to messages
 			this.messages.push(message);
@@ -75,6 +89,15 @@ export default {
 			this.$store.commit('setChatError', true);
 			this.$router.push('/rooms');
 		}
+	},
+	beforeUnmount() {
+		this.sockets.unsubscribe(this.$route.params.roomId);
 	}
 };
 </script>
+<style scoped>
+#messages {
+	height: calc(100vh - 12rem);
+	overflow-y: scroll;
+}
+</style>
