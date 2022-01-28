@@ -135,21 +135,27 @@ export default {
 			}
 
 			const diff = now - lastActive; // Get the difference between now and the last active time
+			const diffInSeconds = Math.round(diff / 1000); // Convert to seconds
 			const diffInMinutes = Math.round(diff / 1000 / 60); // Convert to minutes
 			const diffInHours = Math.round(diff / 1000 / 60 / 60); // Convert to hours
 			const diffInDays = Math.round(diff / 1000 / 60 / 60 / 24); // Convert to days
-			if (diffInMinutes < 1) {
-				// If less than a minute
+			if (diffInSeconds < 15) {
+				// If less than 15 seconds ago
 				return 'Just now';
+			} else if (diffInSeconds < 60) {
+				// If less than a minute
+				return `${diffInSeconds} seconds ago`;
 			} else if (diffInMinutes < 60) {
 				// If less than an hour
-				return `${diffInMinutes} minutes ago`;
+				return `${diffInMinutes} minute${
+					diffInMinutes > 1 ? 's' : ''
+				} ago`;
 			} else if (diffInHours < 24) {
 				// If less than a day
-				return `${diffInHours} hours ago`;
+				return `${diffInHours} hour${diffInHours >= 1 ? 's' : ''} ago`;
 			} else {
 				// If more than a day
-				return `${diffInDays} days ago`;
+				return `${diffInDays} day${diffInDays >= 1 ? 's' : ''} ago`;
 			}
 		},
 		/**
