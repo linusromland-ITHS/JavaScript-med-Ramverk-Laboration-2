@@ -40,6 +40,8 @@ export default {
 	},
 	created() {
 		this.fetchRoom();
+
+		if (!navigator.onLine) this.$store.commit('setChatError', true);
 	}
 };
 </script>

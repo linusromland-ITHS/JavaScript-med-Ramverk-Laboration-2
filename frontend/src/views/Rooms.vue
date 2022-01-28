@@ -75,6 +75,20 @@
 			</p>
 		</Modal>
 
+		<!--Network Chat Room error Modal-->
+		<Modal
+			v-if="chatOfflineErrorModal"
+			@close="chatOfflineErrorModal = false"
+			:showSubmitBtn="false"
+			cancelBtnValue="Close"
+			title="Network error!"
+		>
+			<p class="text-black">
+				You need to be online to chat in a room! Go online and try
+				again!
+			</p>
+		</Modal>
+
 		<div class="divider"></div>
 
 		<div class="w-full flex flex-wrap">
@@ -176,6 +190,11 @@ export default {
 	created() {
 		//Get all rooms on page load
 		this.getRooms();
+
+		if (this.$store.state.chatError) {
+			this.chatOfflineErrorModal = true;
+			this.$store.commit('setChatError', false);
+		}
 	}
 };
 </script>

@@ -3,13 +3,17 @@ import { createStore } from 'vuex';
 
 // Vuex states
 const state = {
-	password: ''
+	password: '',
+	chatError: false
 };
 
 //Vuex mutations
 const mutations = {
 	joinRoom(state, password) {
 		state.password = password;
+	},
+	setChatError(state, error) {
+		state.chatError = error;
 	}
 };
 
