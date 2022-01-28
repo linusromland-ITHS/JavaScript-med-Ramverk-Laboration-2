@@ -62,11 +62,12 @@
 			/>
 		</Modal>
 
-		<!--Network error Modal-->
+		<!--Network Create Room error Modal-->
 		<Modal
 			v-if="offlineErrorModal"
 			@close="offlineErrorModal = false"
 			:showSubmitBtn="false"
+			cancelBtnValue="Close"
 			title="Network error!"
 		>
 			<p class="text-black">
@@ -105,6 +106,7 @@ export default {
 			rooms: [], //Array of all rooms
 			createModal: false, //Boolean to show/hide the create room modal
 			offlineErrorModal: false, //Boolean to show/hide the network error modal
+			chatOfflineErrorModal: false, //Boolean to show/hide the network error modal
 			roomName: '', //Room name
 			adminPassword: '', //Admin password
 			privateRoom: false, //Boolean to check if the room is private

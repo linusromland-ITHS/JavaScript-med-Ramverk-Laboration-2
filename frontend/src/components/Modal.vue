@@ -18,7 +18,7 @@
 					v-if="showCancelBtn"
 					type="submit"
 					class="w-1/2 p-2 rounded-md m-2 bg-red-600 hover:bg-red-400 text-white cursor-pointer"
-					value="Cancel"
+					:value="cancelBtnValue"
 					@click="close"
 				/>
 				<input
@@ -64,6 +64,11 @@ export default {
 			//Value of submit button
 			type: String,
 			default: 'Submit'
+		},
+		cancelBtnValue: {
+			//Value of cancel button
+			type: String,
+			default: 'Cancel'
 		},
 		title: {
 			//Title of modal
