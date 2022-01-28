@@ -24,7 +24,7 @@
 			type="text"
 			name="Message"
 			class="text-black"
-			v-model="messageInput"
+			v-model="message"
 		/>
 		<button @click="sendMessage">Send</button>
 	</div>
@@ -40,9 +40,9 @@ export default {
 	},
 	data() {
 		return {
-			room: {}, //Object containg room data
-			messages: [], //Array of messages
-			messageInput: '' //Message input
+			room: {},
+			messages: [],
+			message: ''
 		};
 	},
 	methods: {
@@ -70,29 +70,10 @@ export default {
 			this.messages.push(message);
 		});
 
-		this.sockets.subscribe(
-			this.$route.params.roomId + '/typing',
-			function (data) {
-				console.log(data);
-			}
-		);
-
 		if (!navigator.onLine) {
 			//Check if user is offline and set error
 			this.$store.commit('setChatError', true);
 			this.$router.push('/rooms');
-		}
-	},
-	watch: {
-		$route() {
-			//If route changes, fetch new room data
-			this.fetchRoom();
-		},
-		messageInput() {
-			this.$socket.emit('typing', {
-				roomId: this.$route.params.roomId,
-				sender: localStorage.username
-			});
 		}
 	}
 };
