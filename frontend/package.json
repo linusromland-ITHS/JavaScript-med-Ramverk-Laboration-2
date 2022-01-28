@@ -11,7 +11,9 @@
 	"dependencies": {
 		"axios": "^0.25.0",
 		"daisyui": "^1.25.4",
+		"socket.io-client": "^4.4.1",
 		"vue": "^3.2.25",
+		"vue-3-socket.io": "^1.0.4",
 		"vue-axios": "^3.4.0",
 		"vue-router": "4",
 		"vuex": "4"
