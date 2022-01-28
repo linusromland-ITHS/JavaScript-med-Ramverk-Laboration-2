@@ -24,7 +24,7 @@
 			type="text"
 			name="Message"
 			class="text-black"
-			v-model="message"
+			v-model="messageInput"
 		/>
 		<button @click="sendMessage">Send</button>
 	</div>
@@ -42,7 +42,7 @@ export default {
 		return {
 			room: {},
 			messages: [],
-			message: ''
+			messageInput: ''
 		};
 	},
 	methods: {
@@ -56,7 +56,7 @@ export default {
 		sendMessage() {
 			this.$socket.emit('message', {
 				roomId: this.$route.params.roomId,
-				message: this.message,
+				message: this.messageInput,
 				sender: localStorage.username
 			});
 			this.message = '';
