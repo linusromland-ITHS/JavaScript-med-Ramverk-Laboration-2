@@ -28,3 +28,17 @@ exports.getFullRoom = async (id) => {
 	const room = await Room.findOne({ _id: ObjectID(id) });
 	return room;
 };
+
+exports.addMessage = async (id, message, sender) => {
+	const messageObj = {
+		message,
+		sender,
+		sentAt: new Date()
+	};
+	await Room.findOneAndUpdate(
+		{ _id: ObjectID(id) },
+		{ $push: { messages: messageObj } }
+	);
+
+	return messageObj;
+};

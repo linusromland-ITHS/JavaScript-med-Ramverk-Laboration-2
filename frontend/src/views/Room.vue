@@ -14,6 +14,19 @@
 		</div>
 
 		<div class="divider"></div>
+		<div id="messages">
+			<div v-for="(message, index) in messages" :key="index">
+				<p>{{ message.message }}</p>
+				<p>From:{{ message.sender }}</p>
+			</div>
+		</div>
+		<input
+			type="text"
+			name="Message"
+			class="text-black"
+			v-model="message"
+		/>
+		<button @click="sendMessage">Send</button>
 	</div>
 </template>
 
@@ -27,7 +40,9 @@ export default {
 	},
 	data() {
 		return {
-			room: {}
+			room: {},
+			messages: [],
+			message: ''
 		};
 	},
 	methods: {
@@ -36,12 +51,30 @@ export default {
 				`/api/rooms/${this.$route.params.roomId}`
 			);
 			this.room = response.data;
+			this.messages = response.data.messages; //Get messages
+		},
+		sendMessage() {
+			this.$socket.emit('message', {
+				roomId: this.$route.params.roomId,
+				message: this.message,
+				sender: localStorage.username
+			});
+			this.message = '';
 		}
 	},
-	created() {
-		this.fetchRoom();
+	mounted() {
+		this.fetchRoom(); //Get room data
 
-		if (!navigator.onLine) this.$store.commit('setChatError', true);
+		this.sockets.subscribe(this.$route.params.roomId, function (message) {
+			//Listen to messages
+			this.messages.push(message);
+		});
+
+		if (!navigator.onLine) {
+			//Check if user is offline and set error
+			this.$store.commit('setChatError', true);
+			this.$router.push('/rooms');
+		}
 	}
 };
 </script>
