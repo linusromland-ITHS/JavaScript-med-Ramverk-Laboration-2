@@ -14,6 +14,12 @@ const routes = [
 		name: 'Rooms',
 		component: () => import('./views/Rooms.vue'),
 		path: '/rooms'
+	},
+	{
+		//Route for the room page
+		name: 'Room',
+		component: () => import('./views/Room.vue'),
+		path: '/room/:roomId'
 	}
 ];
 
