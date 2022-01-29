@@ -17,11 +17,16 @@ exports.getByName = async (name) => {
 };
 
 exports.getRoom = async (id) => {
-	const room = await Room.findOne(
-		{ _id: ObjectID(id) },
-		'-password -adminPassword'
-	);
-	return room;
+	try {
+		const room = await Room.findOne(
+			{ _id: ObjectID(id) },
+			'-password -adminPassword'
+		);
+		return room;
+	} catch (err) {
+		console.error('Crashed while getting room with id: ' + id);
+		return;
+	}
 };
 
 exports.getFullRoom = async (id) => {
