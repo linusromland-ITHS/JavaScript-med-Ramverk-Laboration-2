@@ -5,8 +5,8 @@
 	"main": "main.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "forever main.js",
-		"dev": "cross-env NODE_ENV=development nodemon main.js",
+		"start": "forever src/main.js",
+		"dev": "cross-env NODE_ENV=development nodemon src/main.js",
 		"lint": "eslint --ext .js, --ignore-path .gitignore --fix .",
 		"format": "prettier .  --write"
 	},
