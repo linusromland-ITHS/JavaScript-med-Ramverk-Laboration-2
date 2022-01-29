@@ -64,6 +64,7 @@
 </template>
 
 <script>
+//Components imports:
 import Navbar from '../components/Navbar.vue';
 import RoomSettingsModal from '../components/RoomSettingsModal.vue';
 import ChatMessage from '../components/ChatMessage.vue';
@@ -77,13 +78,17 @@ export default {
 	},
 	data() {
 		return {
-			room: {},
-			messages: [],
-			messageInput: '',
-			roomSettingsModal: false
+			room: {}, // Room object
+			messages: [], // Array of messages
+			messageInput: '', // Input field for message
+			roomSettingsModal: false // Modal for room settings
 		};
 	},
 	methods: {
+		/**
+		 * @name fetchRoom
+		 * @description Fetch room data from server
+		 */
 		async fetchRoom() {
 			const response = await this.axios.get(
 				`/api/rooms/${this.$route.params.roomId}`
@@ -92,9 +97,20 @@ export default {
 			this.room = response.data;
 			if (response.data.messages) this.messages = response.data.messages; //Get messages
 		},
+
+		/**
+		 * @name updateData
+		 * @description Updates room data from input
+		 * @param {Object} room - Room data
+		 */
 		updateData(data) {
 			this.room = data;
 		},
+
+		/**
+		 * @name sendMessage
+		 * @description Send message to server
+		 */
 		sendMessage() {
 			if (this.messageInput.length > 0) {
 				this.$socket.emit('message', {
@@ -111,6 +127,11 @@ export default {
 		$route() {
 			this.fetchRoom();
 		},
+
+		/**
+		 * @description Checks if input field is empty and sets button to disabled if empty
+		 * @param {string} value - Value from input field
+		 */
 		messageInput(value) {
 			if (value === '') this.$refs['sendButton'].disabled = true;
 			else this.$refs['sendButton'].disabled = false;

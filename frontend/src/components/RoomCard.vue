@@ -53,7 +53,7 @@ import Modal from './Modal.vue';
 
 export default {
 	name: 'RoomCard',
-	inject: ['dayjs'],
+	inject: ['dayjs'], //Injects dayjs dependency
 	components: {
 		Modal
 	},

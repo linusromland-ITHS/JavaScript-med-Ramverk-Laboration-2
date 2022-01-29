@@ -10,6 +10,7 @@
 		:title="title"
 		:errorMessage="errorMessage"
 	>
+		<!-- Password Input to show Admin Settings -->
 		<div v-if="!correctAdminPassword" class="flex flex-col items-center">
 			<p class="w-5/6 p-2 rounded-md text-black">
 				To access admin settings you need to enter the admin password.
@@ -23,6 +24,7 @@
 				v-model="adminPassword"
 			/>
 		</div>
+		<!-- Admin Settings -->
 		<div v-else class="w-full flex items-center flex-col">
 			<p class="text-black text-sm pl-10 self-start">Update room name:</p>
 
@@ -92,6 +94,8 @@
 			</div>
 		</div>
 	</Modal>
+
+	<!-- Confirm Delete Modal -->
 	<Modal
 		v-else
 		@close="deleteRoomSubmit"
@@ -113,6 +117,7 @@
 </template>
 
 <script>
+//Components imports:
 import Modal from './Modal.vue';
 import ChangePasswordModal from './ChangePasswordModal.vue';
 
@@ -122,19 +127,19 @@ export default {
 		Modal,
 		ChangePasswordModal
 	},
-	emits: ['update', 'close'],
+	emits: ['update', 'close'], //Emits to parent component
 	data() {
 		return {
-			room: {},
-			adminPassword: '',
-			correctAdminPassword: false,
-			deleteRoom: false,
-			changeAdminPasswordModal: false,
-			changeRoomPasswordModal: false,
-			roomName: '',
-			title: 'Admin Settings',
-			adminChangeErrorMessage: '',
-			roomChangeErrorMessage: '',
+			room: {}, //Room object
+			adminPassword: '', //Admin password
+			correctAdminPassword: false, //If admin password is correct
+			deleteRoom: false, //If user wants to delete the room
+			changeAdminPasswordModal: false, //If user wants to change admin password (shows ChangePasswordModal)
+			changeRoomPasswordModal: false, //If user wants to change room password (shows ChangePasswordModal)
+			roomName: '', //Room name
+			title: 'Admin Settings', //Modal title
+			adminChangeErrorMessage: '', //Admin password change error message
+			roomChangeErrorMessage: '', //Room password change error message
 			errorMessage: '' //error message
 		};
 	},
@@ -146,6 +151,10 @@ export default {
 		}
 	},
 	methods: {
+		/**
+		 * @name submit
+		 * @description This checks if the admin password is correct and shows admin settings if correct
+		 */
 		async submit() {
 			const request = await this.axios.post(
 				`/api/rooms/checkAdminPassword/${this.room._id}`,
@@ -161,6 +170,11 @@ export default {
 				this.errorMessage = 'Wrong password!';
 			}
 		},
+
+		/**
+		 * @name updateRoomName
+		 * @description This send request to update Room Name
+		 */
 		async updateRoomName() {
 			const request = await this.axios.post(
 				`/api/rooms/updateRoomName/${this.room._id}`,
@@ -177,10 +191,20 @@ export default {
 				this.errorMessage = 'Unknown Error!';
 			}
 		},
+
+		/**
+		 * @name deleteRoomClick
+		 * @description This shows the delete room modal
+		 */
 		deleteRoomClick() {
 			this.deleteRoom = true;
 			this.title = 'Are you sure you want to delete this room?';
 		},
+
+		/**
+		 * @name fetchRoom
+		 * @description This gets the latest room information
+		 */
 		async fetchRoom() {
 			const response = await this.axios.get(
 				`/api/rooms/${this.$route.params.roomId}`
@@ -188,6 +212,11 @@ export default {
 			this.room = response.data;
 			this.$emit('update', response.data);
 		},
+
+		/**
+		 * @name deleteRoomSubmit
+		 * @description This sends a request to delete the room
+		 */
 		deleteRoomSubmit() {
 			this.axios
 				.post(`/api/rooms/deleteRoom/${this.room._id}`, {
@@ -197,6 +226,11 @@ export default {
 					this.$router.push('/rooms');
 				});
 		},
+
+		/**
+		 * @name close
+		 * @description This resets all props and data and emits to parent to close settings modal
+		 */
 		close() {
 			this.correctAdminPassword = false;
 			this.deleteRoom = false;
@@ -204,6 +238,11 @@ export default {
 			this.errorMessage = '';
 			this.$emit('close');
 		},
+
+		/**
+		 * @name changeAdminPassword
+		 * @description This sends a request to change admin password
+		 */
 		async changeAdminPassword(data) {
 			if (data.newPassword !== data.confirmPassword) {
 				this.adminChangeErrorMessage = 'Passwords do not match!';
@@ -218,16 +257,25 @@ export default {
 				}
 			);
 			if (request.data.success === true) {
+				//If successful admin name change
 				this.adminChangeErrorMessage = '';
 				this.close();
 			} else if (request.data.success === false) {
+				//If unsuccessful admin name change shows error from server
 				this.adminChangeErrorMessage = request.data.errorMessage;
 			} else {
+				//If unknown error
 				this.adminChangeErrorMessage = 'Unknown Error!';
 			}
 		},
+
+		/**
+		 * @name changeRoomPassword
+		 * @description This sends a request to change room password
+		 */
 		async changeRoomPassword(data) {
 			if (data.newPassword !== data.confirmPassword) {
+				//Checks if passwords match
 				this.roomChangeErrorMessage = 'Passwords do not match!';
 				return;
 			}
@@ -240,18 +288,21 @@ export default {
 				}
 			);
 			if (request.data.success === true) {
+				//If successful room name change
 				this.roomChangeErrorMessage = '';
 				this.close();
 			} else if (request.data.success === false) {
+				//If unsuccessful room name change shows error from server
 				this.roomChangeErrorMessage = request.data.errorMessage;
 			} else {
+				//If unknown error
 				this.roomChangeErrorMessage = 'Unknown Error!';
 			}
 		}
 	},
 	mounted() {
-		this.room = this.roomObj;
-		this.roomName = this.room.name;
+		this.room = this.roomObj; //Sets room object in data from prop
+		this.roomName = this.room.name; //Sets room name in data from prop
 	}
 };
 </script>

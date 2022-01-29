@@ -9,10 +9,10 @@ module.exports = (function () {
 	const router = express.Router();
 
 	/**
-	@route GET /api/room/
-	@desc Get all rooms
-	@access Public
-	*/
+	 * @route GET /api/room/
+	 * @desc Get all rooms
+	 * @access Public
+	 */
 	router.get('/', async (req, res) => {
 		const rooms = await RoomDB.getAll();
 		if (!rooms) res.send().status(500);
@@ -21,11 +21,11 @@ module.exports = (function () {
 	});
 
 	/**
-	@route GET /api/room/:id/
-	@desc Get one room
-	@access Public
-	@param {string} id - The id of the room 
-	*/
+	 * @route GET /api/room/:id/
+	 * @desc Get one room
+	 * @access Public
+	 * @param {string} id - The id of the room
+	 */
 	router.get('/:id/', async (req, res) => {
 		const room = await RoomDB.getRoom(req.params.id);
 		if (!room) res.send().status(500);
@@ -91,6 +91,13 @@ module.exports = (function () {
 		res.send(room.adminPassword === req.body.password).status(200);
 	});
 
+	/**
+	 * @route POST /api/room/changeAdminPassword/:id/
+	 * @desc Update the admin password of a room
+	 * @access Private
+	 * @param {string} id - The id of the room
+	 * @param {string} password - The new password of the room
+	 */
 	router.post('/changeAdminPassword/:id/', async (req, res) => {
 		//Check if oldPassword is correct
 		const room = await RoomDB.getFullRoom(req.params.id);
@@ -108,6 +115,13 @@ module.exports = (function () {
 		}
 	});
 
+	/**
+	 * @route POST /api/room/changeRoomPassword/:id/
+	 * @desc Update the room password of a room
+	 * @access Private
+	 * @param {string} id - The id of the room
+	 * @param {string} password - The new password of the room
+	 */
 	router.post('/changeRoomPassword/:id/', async (req, res) => {
 		//Check if oldPassword is correct
 		const room = await RoomDB.getFullRoom(req.params.id);

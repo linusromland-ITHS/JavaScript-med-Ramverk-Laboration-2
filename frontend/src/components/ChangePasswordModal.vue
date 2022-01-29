@@ -13,6 +13,7 @@
 			To change password, just type your old password and then choose a
 			new one.
 		</p>
+		<!-- Old Password Input -->
 		<input
 			type="password"
 			class="w-5/6 p-2 m-5 mb-0 rounded-md bg-gray-200"
@@ -20,6 +21,7 @@
 			autocomplete="off"
 			v-model="oldPassword"
 		/>
+		<!-- New Password Input -->
 		<input
 			type="password"
 			class="w-5/6 p-2 m-5 mb-0 rounded-md bg-gray-200"
@@ -27,6 +29,7 @@
 			autocomplete="off"
 			v-model="newPassword"
 		/>
+		<!-- Confirm Password Input -->
 		<input
 			type="password"
 			class="w-5/6 p-2 m-5 mb-0 rounded-md bg-gray-200"
@@ -49,17 +52,20 @@ export default {
 	emits: ['close', 'submit'], //Emits events to parent component
 	data() {
 		return {
-			oldPassword: '',
-			newPassword: '',
-			confirmPassword: ''
+			oldPassword: '', //Old password
+			newPassword: '', //New password
+			confirmPassword: '' //Confirm new password
 		};
 	},
 	props: {
+		//Props passed from parent component
 		modalTitle: {
+			//Modal title
 			type: String,
 			default: 'Change Password'
 		},
 		errorMessage: {
+			//Error message
 			type: String,
 			default: ''
 		}
@@ -72,6 +78,7 @@ export default {
 		close() {
 			this.$emit('close');
 		},
+
 		/**
 		 * @name Submit
 		 * @description Emits to parent to submit

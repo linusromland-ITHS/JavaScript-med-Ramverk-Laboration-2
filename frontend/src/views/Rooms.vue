@@ -142,6 +142,7 @@ export default {
 			const result = await request.data;
 			this.rooms = result;
 		},
+
 		/**
 		 * @name createRoom
 		 * @description - Creates a room from the data entered in the modal
@@ -178,6 +179,7 @@ export default {
 					console.log(error.response);
 				});
 		},
+
 		/**
 		 * @name showCreateRoom
 		 * @description - Shows the create room modal
