@@ -3,6 +3,7 @@ const ObjectID = require('mongodb').ObjectID;
 const Room = require('./models/Room');
 
 exports.newRoom = async (name, private, password, adminPassword) => {
+	if (name.length > 24) return;
 	const room = new Room({ name, private, password, adminPassword });
 	return await room.save();
 };

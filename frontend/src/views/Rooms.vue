@@ -39,6 +39,7 @@
 				class="w-5/6 p-2 m-5 rounded-md bg-gray-200 text-black"
 				placeholder="Room Name"
 				autocomplete="off"
+				maxlength="24"
 				v-model="roomName"
 			/>
 			<input
