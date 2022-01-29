@@ -10,12 +10,8 @@
 		:errorMessage="errorMessage"
 	>
 		<!-- Shows Text for change if the user is not setting name for the first time-->
-		<p v-if="setBefore" class="w-5/6 p-2 rounded-md">
-			To change your username enter your new one below!
-		</p>
-		<p v-else class="w-5/6 p-2 rounded-md">
-			To use ChatBubble you need a username! Choose your username below!
-		</p>
+		<p v-if="setBefore" class="w-5/6 p-2 rounded-md">To change your username enter your new one below!</p>
+		<p v-else class="w-5/6 p-2 rounded-md">To use ChatBubble you need a username! Choose your username below!</p>
 		<input
 			type="text"
 			class="w-5/6 p-2 m-5 mb-0 rounded-md bg-gray-200"
@@ -60,8 +56,7 @@ export default {
 		submit() {
 			if (this.username.length < 3) {
 				//if username is less than 3 characters show error
-				this.errorMessage =
-					'Username must be at least 3 characters long';
+				this.errorMessage = 'Username must be at least 3 characters long';
 				return;
 			} else if (this.username.length > 16) {
 				//if username is more than 3 characters, update username and close modal

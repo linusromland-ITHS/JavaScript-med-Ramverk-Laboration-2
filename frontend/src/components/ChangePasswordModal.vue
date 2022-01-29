@@ -9,10 +9,7 @@
 		:title="modalTitle"
 		:errorMessage="errorMessage"
 	>
-		<p class="w-5/6 p-2 rounded-md">
-			To change password, just type your old password and then choose a
-			new one.
-		</p>
+		<p class="w-5/6 p-2 rounded-md">To change password, just type your old password and then choose a new one.</p>
 		<!-- Old Password Input -->
 		<input
 			type="password"

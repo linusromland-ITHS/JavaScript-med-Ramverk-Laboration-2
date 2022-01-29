@@ -13,8 +13,8 @@
 		<!-- Password Input to show Admin Settings -->
 		<div v-if="!correctAdminPassword" class="flex flex-col items-center">
 			<p class="w-5/6 p-2 rounded-md text-black">
-				To access admin settings you need to enter the admin password.
-				Have you forgotten your password? Contact the administrator.
+				To access admin settings you need to enter the admin password. Have you forgotten your password? Contact
+				the administrator.
 			</p>
 			<input
 				class="w-5/6 p-2 m-5 mb-0 rounded-md bg-gray-200 text-black"
@@ -42,9 +42,7 @@
 					Update
 				</button>
 			</div>
-			<div
-				class="w-full flex lg:justify-around lg:flex-row flex-col justify-center items-center"
-			>
+			<div class="w-full flex lg:justify-around lg:flex-row flex-col justify-center items-center">
 				<div
 					class="p-2 mt-4 mx-6 border-2 border-red-500 rounded-md flex flex-col items-center justify-around lg:w-4/12 w-1/2"
 				>
@@ -57,9 +55,7 @@
 						Delete Room
 					</button>
 				</div>
-				<div
-					class="lg:w-5/12 w-full flex flex-col mt-4 items-center justify-center"
-				>
+				<div class="lg:w-5/12 w-full flex flex-col mt-4 items-center justify-center">
 					<div>
 						<button
 							@click="changeAdminPasswordModal = true"
@@ -109,8 +105,8 @@
 	>
 		<div class="flex flex-col items-center">
 			<p class="w-5/6 p-2 rounded-md text-black">
-				This action will permanently delete the room and all messages
-				that have been sent in the room. This is not reversible!
+				This action will permanently delete the room and all messages that have been sent in the room. This is
+				not reversible!
 			</p>
 		</div>
 	</Modal>
@@ -156,12 +152,9 @@ export default {
 		 * @description This checks if the admin password is correct and shows admin settings if correct
 		 */
 		async submit() {
-			const request = await this.axios.post(
-				`/api/rooms/checkAdminPassword/${this.room._id}`,
-				{
-					password: this.adminPassword
-				}
-			);
+			const request = await this.axios.post(`/api/rooms/checkAdminPassword/${this.room._id}`, {
+				password: this.adminPassword
+			});
 			if (request.data) {
 				this.error = false;
 				this.errorMessage = '';
@@ -176,13 +169,10 @@ export default {
 		 * @description This send request to update Room Name
 		 */
 		async updateRoomName() {
-			const request = await this.axios.post(
-				`/api/rooms/updateRoomName/${this.room._id}`,
-				{
-					name: this.roomName,
-					password: this.adminPassword
-				}
-			);
+			const request = await this.axios.post(`/api/rooms/updateRoomName/${this.room._id}`, {
+				name: this.roomName,
+				password: this.adminPassword
+			});
 			if (request.data) {
 				this.errorMessage = '';
 				this.correctAdminPassword = true;
@@ -206,9 +196,7 @@ export default {
 		 * @description This gets the latest room information
 		 */
 		async fetchRoom() {
-			const response = await this.axios.get(
-				`/api/rooms/${this.$route.params.roomId}`
-			);
+			const response = await this.axios.get(`/api/rooms/${this.$route.params.roomId}`);
 			this.room = response.data;
 			this.$emit('update', response.data);
 		},
@@ -248,14 +236,11 @@ export default {
 				this.adminChangeErrorMessage = 'Passwords do not match!';
 				return;
 			}
-			const request = await this.axios.post(
-				`/api/rooms/changeAdminPassword/${this.room._id}`,
-				{
-					password: data.oldPassword,
-					newPassword: data.newPassword,
-					roomId: this.room._id
-				}
-			);
+			const request = await this.axios.post(`/api/rooms/changeAdminPassword/${this.room._id}`, {
+				password: data.oldPassword,
+				newPassword: data.newPassword,
+				roomId: this.room._id
+			});
 			if (request.data.success === true) {
 				//If successful admin name change
 				this.adminChangeErrorMessage = '';
@@ -279,14 +264,11 @@ export default {
 				this.roomChangeErrorMessage = 'Passwords do not match!';
 				return;
 			}
-			const request = await this.axios.post(
-				`/api/rooms/changeRoomPassword/${this.room._id}`,
-				{
-					password: data.oldPassword,
-					newPassword: data.newPassword,
-					roomId: this.room._id
-				}
-			);
+			const request = await this.axios.post(`/api/rooms/changeRoomPassword/${this.room._id}`, {
+				password: data.oldPassword,
+				newPassword: data.newPassword,
+				roomId: this.room._id
+			});
 			if (request.data.success === true) {
 				//If successful room name change
 				this.roomChangeErrorMessage = '';

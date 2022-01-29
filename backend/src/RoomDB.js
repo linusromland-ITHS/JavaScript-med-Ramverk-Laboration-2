@@ -47,10 +47,7 @@ exports.getByName = async (name) => {
  */
 exports.getRoom = async (id) => {
 	try {
-		const room = await Room.findOne(
-			{ _id: ObjectID(id) },
-			'-password -adminPassword'
-		);
+		const room = await Room.findOne({ _id: ObjectID(id) }, '-password -adminPassword');
 		return room;
 	} catch (err) {
 		console.error('Crashed while getting room with id: ' + id);
@@ -83,10 +80,7 @@ exports.addMessage = async (id, message, sender) => {
 		sender,
 		sentAt: new Date()
 	};
-	await Room.findOneAndUpdate(
-		{ _id: ObjectID(id) },
-		{ $push: { messages: messageObj } }
-	);
+	await Room.findOneAndUpdate({ _id: ObjectID(id) }, { $push: { messages: messageObj } });
 
 	return messageObj;
 };
@@ -128,10 +122,7 @@ exports.isValidRoom = async (id) => {
  * @param {string} password - The new admin password
  */
 exports.changeAdminPassword = async (id, password) => {
-	await Room.findOneAndUpdate(
-		{ _id: ObjectID(id) },
-		{ $set: { adminPassword: password } }
-	);
+	await Room.findOneAndUpdate({ _id: ObjectID(id) }, { $set: { adminPassword: password } });
 };
 
 /**
@@ -141,8 +132,5 @@ exports.changeAdminPassword = async (id, password) => {
  * @param {string} password - The new room password
  */
 exports.changeRoomPassword = async (id, password) => {
-	await Room.findOneAndUpdate(
-		{ _id: ObjectID(id) },
-		{ $set: { password: password } }
-	);
+	await Room.findOneAndUpdate({ _id: ObjectID(id) }, { $set: { password: password } });
 };

@@ -41,11 +41,7 @@ export default defineConfig({
 			},
 			registerType: 'autoUpdate',
 			workbox: {
-				globPatterns: [
-					'assets/**',
-					'index.html',
-					'manifest.webmanifest'
-				],
+				globPatterns: ['assets/**', 'index.html', 'manifest.webmanifest'],
 				runtimeCaching: [
 					{
 						handler: 'NetworkFirst',

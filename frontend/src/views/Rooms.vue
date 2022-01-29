@@ -1,15 +1,12 @@
 <template>
 	<Navbar />
 	<div class="mx-5">
-		<div
-			class="lg:h-28 md:h-52 border-b-2 border-slate-50 flex items-center rounded-sm"
-		>
+		<div class="lg:h-28 md:h-52 border-b-2 border-slate-50 flex items-center rounded-sm">
 			<div class="lg:flex lg:justify-between items-center w-full">
 				<div class="flex flex-col justify-around">
 					<h1 class="text-4xl text-bold text-sky-500">Rooms</h1>
 					<p class="text-xl my-2 text-slate-50">
-						To join a room, just click the room you want to join
-						below and start chatting!
+						To join a room, just click the room you want to join below and start chatting!
 					</p>
 				</div>
 
@@ -50,11 +47,7 @@
 				v-model="adminPassword"
 			/>
 			<div class="flex align-center">
-				<input
-					type="checkbox"
-					class="w-6 h-6 m-1 rounded-md bg-gray-200 text-black"
-					v-model="privateRoom"
-				/>
+				<input type="checkbox" class="w-6 h-6 m-1 rounded-md bg-gray-200 text-black" v-model="privateRoom" />
 				<p class="p-1 m-1 text-black">Private Room</p>
 			</div>
 			<input
@@ -75,9 +68,7 @@
 			cancelBtnValue="Close"
 			title="Network error!"
 		>
-			<p class="text-black">
-				You need to be online to create a room! Go online and try again!
-			</p>
+			<p class="text-black">You need to be online to create a room! Go online and try again!</p>
 		</Modal>
 
 		<!--Network Chat Room error Modal-->
@@ -88,19 +79,12 @@
 			cancelBtnValue="Close"
 			title="Network error!"
 		>
-			<p class="text-black">
-				You need to be online to chat in a room! Go online and try
-				again!
-			</p>
+			<p class="text-black">You need to be online to chat in a room! Go online and try again!</p>
 		</Modal>
 
 		<div class="w-full flex flex-wrap">
 			<!-- Loops through rooms and displays RoomCard -->
-			<RoomCard
-				v-for="(room, index) in rooms"
-				:key="index"
-				:room="room"
-			></RoomCard>
+			<RoomCard v-for="(room, index) in rooms" :key="index" :room="room"></RoomCard>
 		</div>
 	</div>
 </template>
@@ -148,11 +132,7 @@ export default {
 		 * @description - Creates a room from the data entered in the modal
 		 */
 		createRoom() {
-			if (
-				!this.roomName ||
-				!this.adminPassword ||
-				(this.privateRoom && !this.privateRoomPassword)
-			) {
+			if (!this.roomName || !this.adminPassword || (this.privateRoom && !this.privateRoomPassword)) {
 				//Check if all fields are filled
 				this.errorMessage = 'Please fill out all fields';
 				return;

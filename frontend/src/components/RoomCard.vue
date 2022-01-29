@@ -7,9 +7,7 @@
 			<img v-if="privateRoom" src="../assets/lock.svg" />
 			{{ room.name }}
 		</h2>
-		<p class="text-gray-700">
-			<span class="font-semibold">Last Active:</span> {{ lastActive }}
-		</p>
+		<p class="text-gray-700"><span class="font-semibold">Last Active:</span> {{ lastActive }}</p>
 	</div>
 	<!--Password Modal-->
 	<Modal
@@ -23,8 +21,8 @@
 		:errorMessage="errorMessage"
 	>
 		<p class="text-black">
-			This room is password protected. Enter the password below to join.
-			Have you forgotten your password? Contact the administrator.
+			This room is password protected. Enter the password below to join. Have you forgotten your password? Contact
+			the administrator.
 		</p>
 		<input
 			type="password"
@@ -36,15 +34,8 @@
 	</Modal>
 
 	<!--Network error Modal-->
-	<Modal
-		v-if="offlineErrorModal"
-		@close="offlineErrorModal = false"
-		:showSubmitBtn="false"
-		title="Network error!"
-	>
-		<p class="text-black">
-			You need to be online to connect to a room! Go online and try again!
-		</p>
+	<Modal v-if="offlineErrorModal" @close="offlineErrorModal = false" :showSubmitBtn="false" title="Network error!">
+		<p class="text-black">You need to be online to connect to a room! Go online and try again!</p>
 	</Modal>
 </template>
 <script>
@@ -93,12 +84,9 @@ export default {
 		 * @description Checks if the password is correct and if so connects to the room
 		 */
 		async submitPassword() {
-			const request = await this.axios.post(
-				`/api/rooms/checkPassword/${this.room._id}`,
-				{
-					password: this.password
-				}
-			);
+			const request = await this.axios.post(`/api/rooms/checkPassword/${this.room._id}`, {
+				password: this.password
+			});
 			if (request.data) {
 				this.error = false;
 				this.errorMessage = '';
@@ -127,9 +115,7 @@ export default {
 
 			if (this.room.messages && this.room.messages.length > 0) {
 				// If there are messages
-				lastActive = new Date( // Get the time of the last message
-					this.room.messages[this.room.messages.length - 1].sentAt
-				);
+				lastActive = new Date(this.room.messages[this.room.messages.length - 1].sentAt); // Get the time of the last message
 			} else {
 				// If there are no messages
 				lastActive = new Date(this.room.createdAt); // Get the time of the room creation

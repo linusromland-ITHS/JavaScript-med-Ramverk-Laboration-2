@@ -107,10 +107,7 @@ module.exports = (function () {
 				errorMessage: 'Wrong Password!'
 			}).status(200);
 		} else {
-			await RoomDB.changeAdminPassword(
-				req.params.id,
-				req.body.newPassword
-			);
+			await RoomDB.changeAdminPassword(req.params.id, req.body.newPassword);
 			res.json({ success: true, errorMessage: '' }).status(200);
 		}
 	});
@@ -131,10 +128,7 @@ module.exports = (function () {
 				errorMessage: 'Wrong Password!'
 			}).status(200);
 		} else {
-			await RoomDB.changeRoomPassword(
-				req.params.id,
-				req.body.newPassword
-			);
+			await RoomDB.changeRoomPassword(req.params.id, req.body.newPassword);
 			res.json({ success: true, errorMessage: '' }).status(200);
 		}
 	});
@@ -159,12 +153,7 @@ module.exports = (function () {
 			return;
 		}
 
-		const room = await RoomDB.newRoom(
-			name,
-			private,
-			password,
-			adminPassword
-		);
+		const room = await RoomDB.newRoom(name, private, password, adminPassword);
 		if (!room) res.send().status(500);
 		else res.send(room).status(200);
 	});

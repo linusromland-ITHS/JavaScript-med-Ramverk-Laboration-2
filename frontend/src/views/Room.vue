@@ -16,21 +16,9 @@
 				</button>
 			</div>
 		</div>
-		<div
-			id="messages"
-			class="mt-2 scroll-smooth bg-slate-500 p-4 rounded-md"
-			ref="messages"
-		>
-			<div
-				v-for="message in messages"
-				:key="message.id"
-				class="w-full border-b border-slate-400 my-1"
-			>
-				<ChatMessage
-					:message="message.message"
-					:sender="message.sender"
-					:sentAt="message.sentAt"
-				/>
+		<div id="messages" class="mt-2 scroll-smooth bg-slate-500 p-4 rounded-md" ref="messages">
+			<div v-for="message in messages" :key="message.id" class="w-full border-b border-slate-400 my-1">
+				<ChatMessage :message="message.message" :sender="message.sender" :sentAt="message.sentAt" />
 			</div>
 		</div>
 		<div class="w-full flex mt-1 items-center justify-center">
@@ -90,9 +78,7 @@ export default {
 		 * @description Fetch room data from server
 		 */
 		async fetchRoom() {
-			const response = await this.axios.get(
-				`/api/rooms/${this.$route.params.roomId}`
-			);
+			const response = await this.axios.get(`/api/rooms/${this.$route.params.roomId}`);
 			if (!response.data) this.$router.push('/rooms');
 			this.room = response.data;
 			if (response.data.messages) this.messages = response.data.messages; //Get messages

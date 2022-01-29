@@ -18,17 +18,10 @@ exports.setup = (collectionname, connectURL) => {
 	db = connection;
 	db.on(
 		'error',
-		console.error.bind(
-			console,
-			'Error while connecting to MongoDB using the following mongoURL: "' +
-				dbLink +
-				'"'
-		)
+		console.error.bind(console, 'Error while connecting to MongoDB using the following mongoURL: "' + dbLink + '"')
 	);
 	db.once('open', function () {
-		console.info(
-			'Connected to MongoDB using collection "' + collectionname + '"'
-		);
+		console.info('Connected to MongoDB using collection "' + collectionname + '"');
 	});
 };
 

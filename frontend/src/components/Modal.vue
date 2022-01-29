@@ -1,9 +1,6 @@
 <template>
 	<div class="fixed inset-0 w-full h-full z-50 flex" id="transition">
-		<div
-			class="m-auto lg:w-2/6 md:w-4/6 w-10/12 bg-white p-5 rounded-md flex flex-col items-center"
-			v-if="!error"
-		>
+		<div class="m-auto lg:w-2/6 md:w-4/6 w-10/12 bg-white p-5 rounded-md flex flex-col items-center" v-if="!error">
 			<h3 class="text-2xl m-5 text-black">{{ title }}</h3>
 
 			<!--Modal Content-->
@@ -30,10 +27,7 @@
 				/>
 			</div>
 		</div>
-		<div
-			class="m-auto w-2/6 bg-white p-5 rounded-md flex flex-col items-center"
-			v-else
-		>
+		<div class="m-auto w-2/6 bg-white p-5 rounded-md flex flex-col items-center" v-else>
 			<h3 class="text-2xl m-5 text-red-500">{{ errorMessage }}</h3>
 			<button
 				type="submit"
