@@ -24,7 +24,7 @@
 			/>
 		</div>
 		<div v-else class="w-full flex items-center flex-col">
-			<p class="text-black text-sm pl-9 self-start">Update room name:</p>
+			<p class="text-black text-sm pl-10 self-start">Update room name:</p>
 
 			<div class="w-full flex justify-center">
 				<input
@@ -41,16 +41,33 @@
 				</button>
 			</div>
 			<div
-				class="px-4 py-2 mt-4 mx-4 border-2 border-red-500 rounded-md flex flex-col items-center lg:w-1/2 w-full"
+				class="w-full flex lg:justify-around lg:flex-row flex-col justify-center items-center"
 			>
-				<p class="text-red-500 text-lg">Danger Area!</p>
-
-				<button
-					@click="deleteRoomClick"
-					class="p-2 bg-red-500 hover:bg-red-400 text-white cursor-pointer rounded-md"
+				<div
+					class="p-2 mt-4 mx-6 border-2 border-red-500 rounded-md flex flex-col items-center justify-around lg:w-4/12 w-1/2"
 				>
-					Delete Room
-				</button>
+					<p class="text-red-500 text-lg">Danger Area!</p>
+
+					<button
+						@click="deleteRoomClick"
+						class="p-2 bg-red-500 hover:bg-red-400 text-white cursor-pointer rounded-md"
+					>
+						Delete Room
+					</button>
+				</div>
+				<div
+					class="lg:w-5/12 w-full flex flex-col mt-4 items-center justify-center"
+				>
+					<button
+						class="p-2 m-2 bg-slate-500 hover:bg-slate-400 text-white cursor-pointer rounded-md"
+					>
+						Change Admin Password</button
+					><button
+						class="p-2 m-2 bg-slate-500 hover:bg-slate-400 text-white cursor-pointer rounded-md"
+					>
+						Change Room Password
+					</button>
+				</div>
 			</div>
 		</div>
 	</Modal>
