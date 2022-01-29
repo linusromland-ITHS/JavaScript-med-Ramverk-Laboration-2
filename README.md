@@ -2,62 +2,18 @@
 
 Individuella projektet tillhörande `Laboration 2`.
 
-# Bygg Projektet
+## Bygg Projektet
 
 [NodeJS](https://nodejs.org/en/) & [NPM](https://www.npmjs.com/) krävs för att bygga projektet.
 
-## Frontend
+### Frontend
 
-### Navigera till frontend mappen:
+För instruktioner om hur man bygger Frontend, klicka [här](/frontend/README.md)
 
-```
-cd frontend
-```
+### Backend
 
-### Installera dependencies:
+För instruktioner om hur man bygger Backend, klicka [här](/backend/README.md)
 
-```
-npm install
-```
-
-### Bygga frontend för produktion:
-
-```
-npm run build
-```
-
-### Bygga frontend för utveckling:
-
-```
-npm run dev
-```
-
-## Bygga backend
-
-### Navigera till backend mappen:
-
-```
-cd backend
-```
-
-### Installera dependencies:
-
-```
-npm install
-```
-
-### Starta backend för produktion:
-
-```
-npm run start
-```
-
-### Starta backend för utveckling:
-
-```
-npm run dev
-```
-
-# Licens
+## Licens
 
 Distribueras under MIT-licensen. Se [`LICENSE`](LICENSE) för mer information.
