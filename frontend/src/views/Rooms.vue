@@ -1,11 +1,13 @@
 <template>
 	<Navbar />
 	<div class="mx-5">
-		<div class="h-28 border-b-2 border-slate-900 flex items-center">
+		<div
+			class="lg:h-28 md:h-52 border-b-2 border-slate-50 flex items-center rounded-sm"
+		>
 			<div class="lg:flex lg:justify-between items-center w-full">
 				<div class="flex flex-col justify-around">
 					<h1 class="text-4xl text-bold text-sky-500">Rooms</h1>
-					<p class="text-xl my-2">
+					<p class="text-xl my-2 text-slate-50">
 						To join a room, just click the room you want to join
 						below and start chatting!
 					</p>

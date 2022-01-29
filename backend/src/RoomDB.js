@@ -50,3 +50,8 @@ exports.updateRoomName = async (id, name) => {
 exports.deleteRoom = async (id) => {
 	await Room.findOneAndDelete({ _id: ObjectID(id) });
 };
+
+exports.isValidRoom = async (id) => {
+	const room = await Room.findOne({ _id: ObjectID(id) });
+	return room ? true : false;
+};

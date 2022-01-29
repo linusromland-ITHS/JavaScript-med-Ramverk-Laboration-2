@@ -1,9 +1,9 @@
 <template>
 	<Navbar />
 	<div class="mx-5">
-		<div class="h-16 border-b-2 border-slate-900">
+		<div class="lg:h-16 md:h-42 border-b-2 border-slate-50 rounded-sm">
 			<div class="lg:flex lg:justify-between lg:items-center">
-				<h1 class="text-3xl text-bold text-sky-500 p-4">
+				<h1 class="text-3xl text-bold text-sky-500 p-1">
 					{{ room.name }}
 				</h1>
 
@@ -36,7 +36,9 @@
 			/>
 			<button
 				@click="sendMessage"
-				class="w-1/12 p-2 bg-blue-500 hover:bg-blue-400 text-white cursor-pointer rounded-r-md"
+				class="w-1/12 p-2 bg-blue-500 disabled:bg-blue-300 disabled:hover:bg-blue-300 hover:bg-blue-400 text-white cursor-pointer rounded-r-md"
+				ref="sendButton"
+				disabled
 			>
 				Send
 			</button>
@@ -58,7 +60,7 @@ export default {
 	name: 'Room',
 	components: {
 		Navbar,
-		RoomSettingsModal
+		RoomSettingsModal,
 	},
 	data() {
 		return {
@@ -80,13 +82,24 @@ export default {
 			this.room = data;
 		},
 		sendMessage() {
-			this.$socket.emit('message', {
-				roomId: this.$route.params.roomId,
-				message: this.messageInput,
-				sender: localStorage.username
-			});
-			this.messageInput = '';
-			this.$refs['input'].value = '';
+			if (this.messageInput.length > 0) {
+				this.$socket.emit('message', {
+					roomId: this.$route.params.roomId,
+					message: this.messageInput,
+					sender: localStorage.username
+				});
+				this.messageInput = '';
+				this.$refs['input'].value = '';
+			}
+		}
+	},
+	watch: {
+		$route() {
+			this.fetchRoom();
+		},
+		messageInput(value) {
+			if (value === '') this.$refs['sendButton'].disabled = true;
+			else this.$refs['sendButton'].disabled = false;
 		}
 	},
 	mounted() {
