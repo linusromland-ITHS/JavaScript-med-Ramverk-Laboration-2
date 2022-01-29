@@ -52,6 +52,7 @@ import Modal from './Modal.vue';
 
 export default {
 	name: 'RoomCard',
+	inject: ['dayjs'],
 	components: {
 		Modal
 	},
@@ -121,7 +122,6 @@ export default {
 		 * @returns {string}
 		 */
 		lastActive() {
-			const now = new Date();
 			let lastActive;
 
 			if (this.room.messages && this.room.messages.length > 0) {
@@ -134,29 +134,7 @@ export default {
 				lastActive = new Date(this.room.createdAt); // Get the time of the room creation
 			}
 
-			const diff = now - lastActive; // Get the difference between now and the last active time
-			const diffInSeconds = Math.round(diff / 1000); // Convert to seconds
-			const diffInMinutes = Math.round(diff / 1000 / 60); // Convert to minutes
-			const diffInHours = Math.round(diff / 1000 / 60 / 60); // Convert to hours
-			const diffInDays = Math.round(diff / 1000 / 60 / 60 / 24); // Convert to days
-			if (diffInSeconds < 15) {
-				// If less than 15 seconds ago
-				return 'Just now';
-			} else if (diffInSeconds < 60) {
-				// If less than a minute
-				return `${diffInSeconds} seconds ago`;
-			} else if (diffInMinutes < 60) {
-				// If less than an hour
-				return `${diffInMinutes} minute${
-					diffInMinutes > 1 ? 's' : ''
-				} ago`;
-			} else if (diffInHours < 24) {
-				// If less than a day
-				return `${diffInHours} hour${diffInHours >= 1 ? 's' : ''} ago`;
-			} else {
-				// If more than a day
-				return `${diffInDays} day${diffInDays >= 1 ? 's' : ''} ago`;
-			}
+			return this.dayjs(lastActive).fromNow(); // Return the time from now
 		},
 		/**
 		 * @name roomPassModalText

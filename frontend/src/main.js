@@ -5,6 +5,8 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueSocketIO from 'vue-3-socket.io';
 import io from 'socket.io-client';
+import dayjs from 'dayjs';
+import RelativeTime from 'dayjs/plugin/relativeTime';
 
 //Internal Dependencies import:
 import './index.css';
@@ -26,6 +28,12 @@ app.use(store);
 
 //Registers axios
 app.use(VueAxios, axios);
+
+//Imports RelativeTime plugin for dayjs
+dayjs.extend(RelativeTime);
+
+//Provide dayjs
+app.provide('dayjs', dayjs);
 
 //Registers Socket.IO
 const socketio = new VueSocketIO({ connection: io(window.location.origin) });
