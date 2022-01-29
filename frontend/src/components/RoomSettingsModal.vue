@@ -13,7 +13,7 @@
 		<div v-if="!correctAdminPassword" class="flex flex-col items-center">
 			<p class="w-5/6 p-2 rounded-md text-black">
 				To access admin settings you need to enter the admin password.
-				Do this below.
+				Have you forgotten your password? Contact the administrator.
 			</p>
 			<input
 				class="w-5/6 p-2 m-5 mb-0 rounded-md bg-gray-200 text-black"

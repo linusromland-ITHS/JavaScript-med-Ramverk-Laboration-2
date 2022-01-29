@@ -24,6 +24,7 @@
 	>
 		<p class="text-black">
 			This room is password protected. Enter the password below to join.
+			Have you forgotten your password? Contact the administrator.
 		</p>
 		<input
 			type="password"
