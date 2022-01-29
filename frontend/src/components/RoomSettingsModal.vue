@@ -1,5 +1,6 @@
 <template>
 	<Modal
+		v-if="!deleteRoom"
 		@close="close"
 		@submit="submit"
 		:showSubmitBtn="!correctAdminPassword"
@@ -21,21 +22,6 @@
 				autocomplete="off"
 				v-model="adminPassword"
 			/>
-		</div>
-		<div
-			v-else-if="correctAdminPassword && deleteRoom"
-			class="flex flex-col items-center"
-		>
-			<p class="w-5/6 p-2 rounded-md text-black">
-				This action will permanently delete the room and all messages
-				that have been sent in the room. This is not reversible!
-			</p>
-			<button
-				@click="deleteRoomSubmit"
-				class="w-4/12 p-2 bg-red-500 hover:bg-red-400 text-white cursor-pointer rounded-md"
-			>
-				Delete Room
-			</button>
 		</div>
 		<div v-else class="w-full flex items-center flex-col">
 			<p class="text-black text-sm pl-9 self-start">Update room name:</p>
@@ -68,6 +54,24 @@
 			</div>
 		</div>
 	</Modal>
+	<Modal
+		v-else
+		@close="deleteRoomSubmit"
+		@submit="close"
+		:showSubmitBtn="true"
+		:showCancelBtn="true"
+		submitBtnValue="Cancel"
+		cancelBtnValue="Delete Room"
+		:title="title"
+		:errorMessage="errorMessage"
+	>
+		<div class="flex flex-col items-center">
+			<p class="w-5/6 p-2 rounded-md text-black">
+				This action will permanently delete the room and all messages
+				that have been sent in the room. This is not reversible!
+			</p>
+		</div>
+	</Modal>
 </template>
 
 <script>
@@ -78,7 +82,7 @@ export default {
 	components: {
 		Modal
 	},
-	emits: ['update'],
+	emits: ['update', 'close'],
 	data() {
 		return {
 			room: {},
@@ -148,6 +152,13 @@ export default {
 				.then(() => {
 					this.$router.push('/rooms');
 				});
+		},
+		close() {
+			this.correctAdminPassword = false;
+			this.deleteRoom = false;
+			this.title = 'Admin Settings';
+			this.errorMessage = '';
+			this.$emit('close');
 		}
 	},
 	mounted() {
