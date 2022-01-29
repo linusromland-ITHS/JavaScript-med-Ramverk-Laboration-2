@@ -16,10 +16,21 @@
 				</button>
 			</div>
 		</div>
-		<div id="messages" class="mt-2 scroll-smooth" ref="messages">
-			<div v-for="(message, index) in messages" :key="index">
-				<p>{{ message.message }}</p>
-				<p>From:{{ message.sender }}</p>
+		<div
+			id="messages"
+			class="mt-2 scroll-smooth bg-slate-500 p-4 rounded-md"
+			ref="messages"
+		>
+			<div
+				v-for="message in messages"
+				:key="message.id"
+				class="w-full border-b border-slate-400 my-1"
+			>
+				<ChatMessage
+					:message="message.message"
+					:sender="message.sender"
+					:sentAt="message.sentAt"
+				/>
 			</div>
 		</div>
 		<div class="w-full flex mt-1 items-center justify-center">
@@ -55,12 +66,14 @@
 <script>
 import Navbar from '../components/Navbar.vue';
 import RoomSettingsModal from '../components/RoomSettingsModal.vue';
+import ChatMessage from '../components/ChatMessage.vue';
 
 export default {
 	name: 'Room',
 	components: {
 		Navbar,
 		RoomSettingsModal,
+		ChatMessage
 	},
 	data() {
 		return {
