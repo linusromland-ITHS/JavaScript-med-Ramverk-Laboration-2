@@ -88,6 +88,7 @@ export default {
 			const response = await this.axios.get(
 				`/api/rooms/${this.$route.params.roomId}`
 			);
+			if (!response.data) this.$router.push('/rooms');
 			this.room = response.data;
 			if (response.data.messages) this.messages = response.data.messages; //Get messages
 		},
