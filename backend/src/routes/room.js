@@ -91,6 +91,40 @@ module.exports = (function () {
 		res.send(room.adminPassword === req.body.password).status(200);
 	});
 
+	router.post('/changeAdminPassword/:id/', async (req, res) => {
+		//Check if oldPassword is correct
+		const room = await RoomDB.getFullRoom(req.params.id);
+		if (req.body.password !== room.adminPassword) {
+			res.json({
+				success: false,
+				errorMessage: 'Wrong Password!'
+			}).status(200);
+		} else {
+			await RoomDB.changeAdminPassword(
+				req.params.id,
+				req.body.newPassword
+			);
+			res.json({ success: true, errorMessage: '' }).status(200);
+		}
+	});
+
+	router.post('/changeRoomPassword/:id/', async (req, res) => {
+		//Check if oldPassword is correct
+		const room = await RoomDB.getFullRoom(req.params.id);
+		if (req.body.password !== room.password) {
+			res.json({
+				success: false,
+				errorMessage: 'Wrong Password!'
+			}).status(200);
+		} else {
+			await RoomDB.changeRoomPassword(
+				req.params.id,
+				req.body.newPassword
+			);
+			res.json({ success: true, errorMessage: '' }).status(200);
+		}
+	});
+
 	/**
 	 * @route POST /api/room/new
 	 * @desc Create a new room

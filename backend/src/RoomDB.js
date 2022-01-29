@@ -61,3 +61,17 @@ exports.isValidRoom = async (id) => {
 	const room = await Room.findOne({ _id: ObjectID(id) });
 	return room ? true : false;
 };
+
+exports.changeAdminPassword = async (id, password) => {
+	await Room.findOneAndUpdate(
+		{ _id: ObjectID(id) },
+		{ $set: { adminPassword: password } }
+	);
+};
+
+exports.changeRoomPassword = async (id, password) => {
+	await Room.findOneAndUpdate(
+		{ _id: ObjectID(id) },
+		{ $set: { password: password } }
+	);
+};

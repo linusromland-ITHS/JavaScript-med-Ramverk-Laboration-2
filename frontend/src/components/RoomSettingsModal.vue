@@ -58,15 +58,36 @@
 				<div
 					class="lg:w-5/12 w-full flex flex-col mt-4 items-center justify-center"
 				>
-					<button
-						class="p-2 m-2 bg-slate-500 hover:bg-slate-400 text-white cursor-pointer rounded-md"
-					>
-						Change Admin Password</button
-					><button
-						class="p-2 m-2 bg-slate-500 hover:bg-slate-400 text-white cursor-pointer rounded-md"
-					>
-						Change Room Password
-					</button>
+					<div>
+						<button
+							@click="changeAdminPasswordModal = true"
+							class="p-2 m-2 bg-slate-500 hover:bg-slate-400 text-white cursor-pointer rounded-md"
+						>
+							Change Admin Password
+						</button>
+						<ChangePasswordModal
+							v-if="changeAdminPasswordModal"
+							@close="close"
+							@submit="changeAdminPassword"
+							modalTitle="Edit Admin Password"
+							:errorMessage="adminChangeErrorMessage"
+						/>
+					</div>
+					<div v-if="this.room.private">
+						<button
+							@click="changeRoomPasswordModal = true"
+							class="p-2 m-2 bg-slate-500 hover:bg-slate-400 text-white cursor-pointer rounded-md"
+						>
+							Change Room Password
+						</button>
+						<ChangePasswordModal
+							v-if="changeRoomPasswordModal"
+							@close="close"
+							@submit="changeRoomPassword"
+							modalTitle="Edit Room Password"
+							:errorMessage="roomChangeErrorMessage"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -93,11 +114,13 @@
 
 <script>
 import Modal from './Modal.vue';
+import ChangePasswordModal from './ChangePasswordModal.vue';
 
 export default {
 	name: 'RoomSettingsModal',
 	components: {
-		Modal
+		Modal,
+		ChangePasswordModal
 	},
 	emits: ['update', 'close'],
 	data() {
@@ -106,8 +129,12 @@ export default {
 			adminPassword: '',
 			correctAdminPassword: false,
 			deleteRoom: false,
+			changeAdminPasswordModal: false,
+			changeRoomPasswordModal: false,
 			roomName: '',
 			title: 'Admin Settings',
+			adminChangeErrorMessage: '',
+			roomChangeErrorMessage: '',
 			errorMessage: '' //error message
 		};
 	},
@@ -176,6 +203,50 @@ export default {
 			this.title = 'Admin Settings';
 			this.errorMessage = '';
 			this.$emit('close');
+		},
+		async changeAdminPassword(data) {
+			if (data.newPassword !== data.confirmPassword) {
+				this.adminChangeErrorMessage = 'Passwords do not match!';
+				return;
+			}
+			const request = await this.axios.post(
+				`/api/rooms/changeAdminPassword/${this.room._id}`,
+				{
+					password: data.oldPassword,
+					newPassword: data.newPassword,
+					roomId: this.room._id
+				}
+			);
+			if (request.data.success === true) {
+				this.adminChangeErrorMessage = '';
+				this.close();
+			} else if (request.data.success === false) {
+				this.adminChangeErrorMessage = request.data.errorMessage;
+			} else {
+				this.adminChangeErrorMessage = 'Unknown Error!';
+			}
+		},
+		async changeRoomPassword(data) {
+			if (data.newPassword !== data.confirmPassword) {
+				this.roomChangeErrorMessage = 'Passwords do not match!';
+				return;
+			}
+			const request = await this.axios.post(
+				`/api/rooms/changeRoomPassword/${this.room._id}`,
+				{
+					password: data.oldPassword,
+					newPassword: data.newPassword,
+					roomId: this.room._id
+				}
+			);
+			if (request.data.success === true) {
+				this.roomChangeErrorMessage = '';
+				this.close();
+			} else if (request.data.success === false) {
+				this.roomChangeErrorMessage = request.data.errorMessage;
+			} else {
+				this.roomChangeErrorMessage = 'Unknown Error!';
+			}
 		}
 	},
 	mounted() {
