@@ -2,8 +2,14 @@
 	<Navbar />
 	<div class="mx-5">
 		<div class="lg:h-16 md:h-42 border-b-2 border-slate-50 rounded-sm">
-			<div class="lg:flex lg:justify-between lg:items-center">
-				<h1 class="text-3xl text-bold text-sky-500 p-1">
+			<div class="md:flex md:justify-between md:items-center">
+				<router-link
+					to="/rooms"
+					class="p-1 w-36 rounded-md m-2 bg-gray-500 hover:bg-gray-400 h-10 text-white cursor-pointer flex items-center"
+					><img src="../assets/back.svg" class="invert" />
+					<p>Back to rooms</p></router-link
+				>
+				<h1 class="text-3xl text-bold text-sky-500 p-1 justify-self-start">
 					{{ room.name }}
 				</h1>
 
