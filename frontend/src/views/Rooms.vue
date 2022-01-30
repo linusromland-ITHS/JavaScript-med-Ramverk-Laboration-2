@@ -46,7 +46,7 @@
 				autocomplete="off"
 				v-model="adminPassword"
 			/>
-			<div class="flex align-center">
+			<div class="flex">
 				<input type="checkbox" class="w-6 h-6 m-1 rounded-md bg-gray-200 text-black" v-model="privateRoom" />
 				<p class="p-1 m-1 text-black">Private Room</p>
 			</div>
