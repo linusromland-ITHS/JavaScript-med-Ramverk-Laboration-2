@@ -58,13 +58,11 @@ export default {
 				//if username is less than 3 characters show error
 				this.errorMessage = 'Username must be at least 3 characters long';
 				return;
-			} else if (this.username.length > 16) {
+			} else {
 				//if username is more than 3 characters, update username and close modal
 				this.errorMessage = '';
 				localStorage.username = this.username;
 				this.$emit('close');
-			} else {
-				this.errorMessage = 'Something went wrong!';
 			}
 		}
 	},
