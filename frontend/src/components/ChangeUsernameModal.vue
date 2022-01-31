@@ -28,7 +28,7 @@
 import Modal from './Modal.vue';
 
 export default {
-	name: 'UsernameModal',
+	name: 'ChangeUsernameModal',
 	components: {
 		Modal
 	},
