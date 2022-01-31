@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 
 //Internal Dependencies import:
-import './index.css';
+import './index.scss';
 import App from './App.vue';
 import router from './router';
 import store from './store';
