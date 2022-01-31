@@ -42,8 +42,7 @@
 			<button
 				@click="sendMessage"
 				class="w-1/12 p-2 bg-blue-500 disabled:bg-blue-300 disabled:hover:bg-blue-300 hover:bg-blue-400 text-white cursor-pointer rounded-r-md"
-				ref="sendButton"
-				disabled
+				:disabled="disabledButton"
 			>
 				Send
 			</button>
@@ -75,7 +74,8 @@ export default {
 			room: {}, // Room object
 			messages: [], // Array of messages
 			messageInput: '', // Input field for message
-			roomSettingsModal: false // Modal for room settings
+			roomSettingsModal: false, // Modal for room settings
+			disabledButton: true // Disables send button if messageInput is empty
 		};
 	},
 	methods: {
@@ -125,8 +125,8 @@ export default {
 		 * @param {string} value - Value from input field
 		 */
 		messageInput(value) {
-			if (value === '') this.$refs['sendButton'].disabled = true;
-			else this.$refs['sendButton'].disabled = false;
+			if (value === '') this.disabledButton = true;
+			else this.disabledButton = false;
 		}
 	},
 	mounted() {
