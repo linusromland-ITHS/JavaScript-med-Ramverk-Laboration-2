@@ -288,3 +288,12 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss" scoped>
+$text-primary-color: #141414;
+
+// TailwindCSS class
+.text-black {
+	color: $text-primary-color;
+}
+</style>
