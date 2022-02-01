@@ -46,7 +46,7 @@ export default defineConfig({
 					{
 						handler: 'NetworkFirst',
 						// Cache GET requests to /api/rooms/
-						urlPattern: 'http://localhost:3000/api/rooms'
+						urlPattern: 'https://chatbubble.romland.dev/api/rooms'
 					}
 				]
 			}
