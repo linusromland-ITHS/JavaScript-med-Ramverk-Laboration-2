@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "forever src/main.js",
-		"dev": "cross-env NODE_ENV=development nodemon src/main.js",
+		"dev": "nodemon src/main.js",
 		"lint": "eslint --ext .js, --ignore-path .gitignore --fix .",
 		"format": "prettier .  --write"
 	},
@@ -28,7 +28,6 @@
 	},
 	"dependencies": {
 		"connect-history-api-fallback": "^1.6.0",
-		"cross-env": "^7.0.3",
 		"dotenv": "^14.2.0",
 		"express": "^4.17.2",
 		"forever": "^4.0.2",

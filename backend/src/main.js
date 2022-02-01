@@ -8,10 +8,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 //Configuring dotenv
-if (process.env.NODE_ENV === 'development') {
-	console.log('Loading development environment variables');
-	dotenv.config();
-}
+dotenv.config();
 
 //Local Dependencies Import
 const database = require('./database');
